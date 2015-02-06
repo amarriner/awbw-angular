@@ -1,0 +1,23 @@
+<h2>Units</h2>
+
+<div class="container-fluid">
+    <div class="table-header row">
+        <div class="col-md-3">Name</div>
+        <div class="col-md-1"><abbr title="Movement Points">MP</abbr></div>
+        <div class="col-md-1">Ammo</div>
+        <div class="col-md-1">Vision</div>
+        <div class="col-md-1">Range</div>
+        <div class="col-md-1">Type</div>
+        <div class="col-md-1">Cost</div>
+    </div>
+    
+    <div class="table-row row {{ ($index % 2 == 0 ? 'even' : 'odd') }}" ng-repeat="unit in units | orderBy: 'name'">
+        <div class="col-md-3 unit-bg unit-ge-{{unit.name.toLowerCase().replace(' ', '').replace('.', '')}}-bg">{{unit.name}}</div>
+        <div class="col-md-1">{{unit.movementPoints}}</div>
+        <div class="col-md-1">{{unit.ammo}}</div>
+        <div class="col-md-1">{{unit.vision}}</div>
+        <div class="col-md-1">{{unit.shortRange}} - {{unit.longRange}}</div>
+        <div class="col-md-1">{{unit.movementType}}</div>
+        <div class="col-md-1">{{unit.cost}}</div>
+    </div>
+</div>

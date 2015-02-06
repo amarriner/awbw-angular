@@ -1,0 +1,14 @@
+{
+  "globalstrict": true,
+  "globals": {
+    "angular": true,
+    "describe": false,
+    "it": false,
+    "expect": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "module": false,
+    "inject": false,
+    "console": true
+  }
+}
