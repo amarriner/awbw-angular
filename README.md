@@ -1,3 +1,3 @@
-# my-angular-seed 
+# Advance Wars by Web
 
-This repo is simply my bootstrap web application based on [angular-seed](https://github.com/angular/angular-seed).
+*Mostly a learning project. Building an app with [AngularJS](https://angularjs.org/). Using [awbwFlask](https://github.com/amarriner/awbwFlask) for a backend.*
