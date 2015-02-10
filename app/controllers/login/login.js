@@ -9,8 +9,8 @@ angular.module('advanceWarsByWeb.login', ['ngRoute'])
   });
 }])
 
-.controller('LoginCtrl', ['$scope', '$http',
-    function($scope, $http) {
+.controller('LoginCtrl', ['$scope', '$http', 'User',
+    function($scope, $http, User) {
         
         $scope.submit = function(username, password) {
             
@@ -19,13 +19,11 @@ angular.module('advanceWarsByWeb.login', ['ngRoute'])
                 "password": $scope.password
             };
 
-            $http.post(restUrlBase + 'login', credentials).
-                success(function(data) { 
-                    $("#results").text("Success! " + data['token']);
-                }).
-                error(function(data) {
-                    $("#results").text("Error! " + data["message"]);
-                });
+            User.getToken(credentials);
+           
         };
+        
+        $scope.message = User.getMessage;
+        $scope.loading = User.getLoading;
     }
 ]);

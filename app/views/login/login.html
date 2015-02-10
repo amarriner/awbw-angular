@@ -11,9 +11,13 @@
         <input type="password" class="form-control" ng-model="password" name="password">
     </div>
 
-    <div class="form-group text-right">
-        <button id="submit" type="submit" class="btn btn-primary">Login</button>
+    <div id="login-controls" class="form-inline form-group text-right">
+        <div class="pull-right">
+            <button id="submit" type="submit" class="pull-right btn btn-primary" ng-disabled="loading()">Login</button>
+        </div>
+        
+        <div class="bg-info text-info pull-right" ng-bind="message()"></div>
+        
+        <div class="pull-right" ng-show="loading()"><i class="fa fa-circle-o-notch fa-spin"></i></div>
     </div>
 </form>
-
-<div id="results"></div>

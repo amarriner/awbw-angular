@@ -8,6 +8,7 @@ angular.module('advanceWarsByWeb', [
     'advanceWarsByWeb.cos',
     'advanceWarsByWeb.countries',
     'advanceWarsByWeb.login',
+    'advanceWarsByWeb.navbar',
     'advanceWarsByWeb.units',
     'advanceWarsByWeb.version',
     'advanceWarsByWebServices'
@@ -28,3 +29,5 @@ config(['$routeProvider', function($routeProvider) {
         }).
         otherwise({redirectTo: '/units'});
 }]);
+
+var advanceWarsByWebServices = angular.module('advanceWarsByWebServices', ['ngResource']);

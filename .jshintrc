@@ -9,6 +9,11 @@
     "afterEach": false,
     "module": false,
     "inject": false,
-    "console": true
+    "console": true,
+    "advanceWarsByWebServices": true,
+    "jquery": true,
+    "restUrlBase": true,
+    "$": true,
+    "alert": true
   }
 }

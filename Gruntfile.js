@@ -18,7 +18,10 @@ module.exports = function(grunt) {
                     jshintrc: true
                 },
                 files: {
-                    src: ['app/js/*.js', 'app/views/**/*.js']
+                    src: [
+                        'app/js/*.js', 
+                        'app/js/controllers/**/*.js',
+                        'app/services/**/*.js']
                 }
             }
         },
