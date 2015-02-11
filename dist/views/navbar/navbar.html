@@ -28,8 +28,9 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <span class="fa fa-user"></span> <span class="hidden-md hidden-lg">User </span><span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header" ng-bind="username()"></li>
-                            <li><a href="#/login">Login</a></li>
+                            <li class="dropdown-header" ng-show="username()" ng-bind="username()"></li>
+                            <li><a href="#/login" ng-show="!isLoggedIn()"><i class="fa fa-sign-in"></i> Login</a></li>
+                            <li><a class="dropdown-toggle" ng-click="logout()" ng-show="isLoggedIn()"><i class="fa fa-sign-out"></i> Logout</a></li>
                         </ul>
                     </li>
                 </ul>
