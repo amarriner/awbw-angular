@@ -19,7 +19,7 @@ angular.module('advanceWarsByWeb.login', ['ngRoute'])
                 "password": $scope.password
             };
 
-            User.getToken(credentials);
+            User.login(credentials);
            
         };
         

@@ -1,14 +1,15 @@
 'use strict';
 
-advanceWarsByWebServices.factory('User', ['$http',
-    function($http) {
+advanceWarsByWebServices.factory('User', ['$http', '$location',
+    function($http, $location) {
         
         var dataFactory = {};
         
         var loading = false;
+        var loggedIn = false;
         var message;
-        var token;
         var username;
+        var token;
         
         return {
             getLoading: function() {
@@ -17,24 +18,47 @@ advanceWarsByWebServices.factory('User', ['$http',
             getMessage: function() {
                 return message;
             },
-            getToken: function(credentials) {
+            getToken: function() {
+                return token;
+            },
+            getUsername: function() {
+                return username;
+            },
+            isLoggedIn: function() {
+                return loggedIn;
+            },
+            login: function(credentials) {
                 message = '';
                 loading = true;
                 
-                return $http.post(restUrlBase + 'login', credentials).
+                var req = {
+                    method : 'POST',
+                    url    : restUrlBase + 'login',
+                    headers: {
+                        'Awbw-Token': token
+                    },
+                    data   : credentials
+                };
+                            
+                return $http(req).
                     success(function(data) { 
                         token = data.token;          
                         username = data.username;
-                        message = "Success!";
+                        message = data.message;
                         loading = false;
+                        loggedIn = true;
                     }).
                     error(function(data) {
                         message = data.message;
                         loading = false;
+                        loggedIn = false;
                     });
             },
-            getUsername: function() {
-                return username;
+            logout: function() {
+                username = undefined;
+                token = undefined;
+                loggedIn = false;
+                $location.path("/");
             }
         };
 

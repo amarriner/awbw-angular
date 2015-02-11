@@ -5,6 +5,7 @@ var restUrlBase = 'http://amarriner.com/awbw/api/';
 // Declare app level module which depends on views, and components
 angular.module('advanceWarsByWeb', [
     'ngRoute',
+    'ngCookies',
     'advanceWarsByWeb.cos',
     'advanceWarsByWeb.countries',
     'advanceWarsByWeb.login',

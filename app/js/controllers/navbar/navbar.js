@@ -6,6 +6,11 @@ angular.module('advanceWarsByWeb.navbar', [])
     function($scope, User) {
         
         $scope.username = User.getUsername; 
+        $scope.isLoggedIn = User.isLoggedIn;
+        
+        $scope.logout = function() {
+            User.logout();
+        };
     
     }
 ]);

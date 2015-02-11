@@ -121,6 +121,7 @@ module.exports = function(grunt) {
                         'app/bower_components/angular/angular.js',
                         'app/bower_components/angular-route/angular-route.js',
                         'app/bower_components/angular-resource/angular-resource.js',
+                        'app/bower_components/angular-cookies/angular-cookies.js',
                         'app/bower_components/jquery/dist/jquery.min.js',
                         'app/bower_components/bootstrap/dist/js/bootstrap.min.js'
                     ]
