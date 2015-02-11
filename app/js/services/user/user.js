@@ -25,7 +25,7 @@ advanceWarsByWebServices.factory('User', ['$http',
                     success(function(data) { 
                         token = data.token;          
                         username = data.username;
-                        message = "Success!"
+                        message = "Success!";
                         loading = false;
                     }).
                     error(function(data) {

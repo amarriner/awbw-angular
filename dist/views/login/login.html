@@ -1,0 +1,23 @@
+<h2>Login</h2>
+
+<form ng-controller="LoginCtrl" ng-submit="submit()">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" ng-model="username" name="username">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" ng-model="password" name="password">
+    </div>
+
+    <div id="login-controls" class="form-inline form-group text-right">
+        <div class="pull-right">
+            <button id="submit" type="submit" class="pull-right btn btn-primary" ng-disabled="loading()">Login</button>
+        </div>
+        
+        <div class="bg-info text-info pull-right" ng-bind="message()"></div>
+        
+        <div class="pull-right" ng-show="loading()"><i class="fa fa-circle-o-notch fa-spin"></i></div>
+    </div>
+</form>

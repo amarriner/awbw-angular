@@ -28,6 +28,11 @@ config(['$routeProvider', function($routeProvider) {
             controller: 'UnitsCtrl'
         }).
         otherwise({redirectTo: '/units'});
-}]);
+}]).
+directive('navbar', function() {
+    return {
+        templateUrl: 'views/navbar/navbar.html'
+    };
+});
 
 var advanceWarsByWebServices = angular.module('advanceWarsByWebServices', ['ngResource']);
