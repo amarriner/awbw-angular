@@ -11,6 +11,7 @@ angular.module('advanceWarsByWeb.login', ['ngRoute'])
 
 .controller('LoginCtrl', ['$scope', '$http', 'User',
     function($scope, $http, User) {
+        $('#username').focus();
         
         $scope.submit = function(username, password) {
             

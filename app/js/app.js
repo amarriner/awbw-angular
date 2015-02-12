@@ -1,6 +1,6 @@
 'use strict';
 
-var restUrlBase = 'http://amarriner.com/awbw/api/';
+var restUrlBase = 'https://awbw-api.amarriner.com/';
 
 // Declare app level module which depends on views, and components
 angular.module('advanceWarsByWeb', [

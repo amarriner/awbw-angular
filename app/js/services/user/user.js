@@ -33,7 +33,7 @@ advanceWarsByWebServices.factory('User', ['$http', '$location',
                 
                 var req = {
                     method : 'POST',
-                    url    : restUrlBase + 'login',
+                    url    : 'https://awbw-api.amarriner.com/login',
                     headers: {
                         'Awbw-Token': token
                     },

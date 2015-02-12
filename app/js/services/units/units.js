@@ -6,7 +6,7 @@ advanceWarsByWebServices.factory('Units', ['$http',
         var message;
         var units;
         
-        $http.get('http://amarriner.com/awbw/api/unit-type').
+        $http.get('https://awbw-api.amarriner.com/unit-type').
             success(function(data) {
                 units = data;
             }).

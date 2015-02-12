@@ -6,7 +6,7 @@ advanceWarsByWebServices.factory('Countries', ['$http',
         var message;
         var countries;
         
-        $http.get('http://amarriner.com/awbw/api/country-type').
+        $http.get('https://awbw-api.amarriner.com/country-type').
             success(function(data) {
                 countries = data;
             }).
