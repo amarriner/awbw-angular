@@ -9,7 +9,7 @@ exports.config = {
     'browserName': 'chrome'
   },
 
-  baseUrl: 'http://localhost/play/app/',
+  baseUrl: 'http://localhost/awbw-angular/app/',
 
   framework: 'jasmine',
 

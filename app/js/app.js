@@ -10,6 +10,7 @@ angular.module('advanceWarsByWeb', [
     'advanceWarsByWeb.countries',
     'advanceWarsByWeb.login',
     'advanceWarsByWeb.navbar',
+    'advanceWarsByWeb.terrain',
     'advanceWarsByWeb.units',
     'advanceWarsByWeb.version',
     'advanceWarsByWebServices'
@@ -23,6 +24,10 @@ config(['$routeProvider', function($routeProvider) {
         when('/countries', {
             templateUrl: 'views/countries/countries.html',
             controller: 'CountriesCtrl'
+        }).
+        when('/terrain', {
+            templateUrl: 'views/terrain/terrain.html',
+            controller: 'TerrainCtrl'
         }).
         when('/units', {
             templateUrl: 'views/units/units.html',

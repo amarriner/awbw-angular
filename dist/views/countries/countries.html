@@ -1,13 +1,23 @@
 <h2>Countries</h2>
 
 <div class="container-fluid">
-    <div class="table-header row">
+    <div class="table-header row" ng-hide="message()">
         <div class="col-md-4">Name</div>
         <div class="col-md-8">Unit</div>
     </div>
     
-    <div class="table-row row {{ ($index % 2 == 0 ? 'even' : 'odd') }}" ng-repeat="country in countries | orderBy: 'name'">
-        <div class="col-md-4 country-bg country-{{country.abbreviation}}-bg">{{country.name}}</div>
-        <div class="col-md-2"><div class="unit unit-{{country.abbreviation}}-infantry-bg"></div>
+    <div class="table-row row" ng-show="!countries() && !message()">
+        <div class="col-md-12">
+            <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+        </div>
+    </div>
+    
+    <div class="alert alert-danger" ng-show="message()">
+        <i class="fa fa-exclamation-triangle"></i> {{message()}}
+    </div>
+    
+    <div class="table-row row {{ ($index % 2 == 0 ? 'even' : 'odd') }}" ng-repeat="country in countries() | orderBy: 'id' | filter: {code:'!n'}">
+        <div class="col-md-4 country-bg country-{{country.code}}-bg">{{country.name}}</div>
+        <div class="col-md-2"><div class="unit unit-{{country.code}}-infantry-bg"></div>
     </div>
 </div>

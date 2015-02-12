@@ -4,23 +4,23 @@
 
 describe('Advance Wars by Web', function() {
 
-    browser.get('index.html#/countries');
+    browser.get('index.html');
 
-    //it('should automatically redirect to /units when location hash/fragment is empty', function() {
-    //    expect(browser.getLocationAbsUrl()).toMatch("/units");
-    //});
+    it('should automatically redirect to /units when location hash/fragment is empty', function() {
+        expect(browser.getLocationAbsUrl()).toMatch("/units");
+    });
 
-    //describe('units', function() {
+    describe('units', function() {
 
-    //    beforeEach(function() {
-    //        browser.get('index.html#/units');
-    //    });
+        beforeEach(function() {
+            browser.get('index.html#/units');
+        });
 
-    //    it('should render units when user navigates to units', function() {
-    //        expect(element.all(by.css('[ng-view] h2')).first().getText()).
-    //            toMatch(/Units/);
-    //    });
-    //});
+        it('should render units when user navigates to units', function() {
+            expect(element.all(by.css('[ng-view] h2')).first().getText()).
+                toMatch(/Units/);
+        });
+    });
         
     describe('countries', function() {
 
@@ -33,14 +33,14 @@ describe('Advance Wars by Web', function() {
                 toMatch(/Countries/);
         });
         
-        it('should have an infantry icon for each country row', function() {
-            console.log('Checking rows');
-            element.all(by.css('.table-row div div.unit')).each(function(unit) {
-                unit.getCssValue('background-image').then(function(value) {
-                    console.log(value.replace('url(', '').replace(')', ''));
-                });
-            });
-        });
+        //it('should have an infantry icon for each country row', function() {
+        //    console.log('Checking rows');
+        //    element.all(by.css('.table-row div div.unit')).each(function(unit) {
+        //        unit.getCssValue('background-image').then(function(value) {
+        //            console.log(value.replace('url(', '').replace(')', ''));
+        //        });
+        //    });
+        //});
     });
 
     describe('cos', function() {
@@ -49,9 +49,22 @@ describe('Advance Wars by Web', function() {
             browser.get('index.html#/cos');
         });
         
-        it('should render countries when user navigates to cos', function() {
+        it('should render cos when user navigates to cos', function() {
             expect(element.all(by.css('[ng-view] h2')).first().getText()).
                 toMatch(/CO Info/);
+        });
+
+    });
+    
+    describe('terrain', function() {
+
+        beforeEach(function() {
+            browser.get('index.html#/terrain');
+        });
+        
+        it('should render terrain when user navigates to terrain', function() {
+            expect(element.all(by.css('[ng-view] h2')).first().getText()).
+                toMatch(/Terrain/);
         });
 
     });
