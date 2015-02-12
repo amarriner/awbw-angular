@@ -6,6 +6,12 @@
         <div class="col-md-8">Unit</div>
     </div>
     
+    <div class="table-row row" ng-show="!countries()">
+        <div class="col-md-12">
+            <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+        </div>
+    </div>
+    
     <div class="table-row row {{ ($index % 2 == 0 ? 'even' : 'odd') }}" ng-repeat="country in countries() | orderBy: 'id' | filter: {code:'!n'}">
         <div class="col-md-4 country-bg country-{{country.code}}-bg">{{country.name}}</div>
         <div class="col-md-2"><div class="unit unit-{{country.code}}-infantry-bg"></div>

@@ -11,6 +11,12 @@
         <div class="col-md-1">Cost</div>
     </div>
     
+    <div class="table-row row" ng-show="!units()">
+        <div class="col-md-12">
+            <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+        </div>
+    </div>
+    
     <div class="table-row row {{ ($index % 2 == 0 ? 'even' : 'odd') }}" ng-repeat="unit in units() | orderBy: 'name'">
         <div class="col-md-3 unit-bg unit-ge-{{unit.name.toLowerCase().replace(' ', '').replace('.', '')}}-bg">{{unit.name}}</div>
         <div class="col-md-1">{{unit.movementPoints}}</div>
