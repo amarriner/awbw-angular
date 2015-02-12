@@ -11,8 +11,8 @@ angular.module('advanceWarsByWeb.countries', ['ngRoute'])
 
 .controller('CountriesCtrl', ['$scope', 'Countries',
     function($scope, Countries) {
-        var countries = Countries.query();  
-            
-        $scope.countries = countries;
+        
+        $scope.countries = Countries.getCountries;
+
     }
 ]);

@@ -3,13 +3,25 @@
 advanceWarsByWebServices.factory('Units', ['$http',
     function($http) {
         
-        var apiName = 'unit-type';
-        var dataFactory = {};
+        var message;
+        var units;
         
-        dataFactory.getUnits = function() {
-            return $http.get('http://amarriner.com/awbw/api/unit-type');
+        $http.get('http://amarriner.com/awbw/api/unit-type').
+            success(function(data) {
+                units = data;
+            }).
+            error(function(data) {
+                message = "Error retrieving units from API!";
+            });
+        
+        return {
+            getMessage: function() {
+                return message;
+            },
+            getUnits: function() {        
+                return units;
+            },
         };
-                
-        return dataFactory;
+        
     }
 ]);
