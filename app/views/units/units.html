@@ -1,7 +1,7 @@
 <h2>Units</h2>
 
 <div class="container-fluid">
-    <div class="table-header row">
+    <div class="table-header row" ng-hide="message()">
         <div class="col-md-3">Name</div>
         <div class="col-md-1"><abbr title="Movement Points">MP</abbr></div>
         <div class="col-md-1">Ammo</div>
@@ -11,10 +11,14 @@
         <div class="col-md-1">Cost</div>
     </div>
     
-    <div class="table-row row" ng-show="!units()">
+    <div class="table-row row" ng-show="!units() && !message()">
         <div class="col-md-12">
             <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
         </div>
+    </div>
+    
+    <div class="alert alert-danger" ng-show="message()">
+        <i class="fa fa-exclamation-triangle"></i> {{message()}}
     </div>
     
     <div class="table-row row {{ ($index % 2 == 0 ? 'even' : 'odd') }}" ng-repeat="unit in units() | orderBy: 'name'">

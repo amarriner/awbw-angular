@@ -12,6 +12,7 @@ angular.module('advanceWarsByWeb.units', ['ngRoute'])
 .controller('UnitsCtrl', ['$scope', 'Units',
     function($scope, Units) {
         
+        $scope.message = Units.getMessage;
         $scope.units = Units.getUnits;
 
     }

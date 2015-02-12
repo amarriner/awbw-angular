@@ -12,6 +12,7 @@ angular.module('advanceWarsByWeb.countries', ['ngRoute'])
 .controller('CountriesCtrl', ['$scope', 'Countries',
     function($scope, Countries) {
         
+        $scope.message = Countries.getMessage;
         $scope.countries = Countries.getCountries;
 
     }
