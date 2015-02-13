@@ -6,7 +6,7 @@ advanceWarsByWebServices.factory('Terrain', ['$http',
         var message;
         var terrain;
         
-        $http.get('https://awbw-api.amarriner.com/terrain-type').
+        $http.get('https://awbw.amarriner.com/api/terrain-type').
             success(function(data) {
                 terrain = data;
             }).

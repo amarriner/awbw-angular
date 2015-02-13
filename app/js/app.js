@@ -33,7 +33,9 @@ config(['$routeProvider', function($routeProvider) {
             templateUrl: 'views/units/units.html',
             controller: 'UnitsCtrl'
         }).
-        otherwise({redirectTo: '/units'});
+        otherwise({
+            templateUrl: 'views/index.html'
+        });
 }]).
 directive('navbar', function() {
     return {

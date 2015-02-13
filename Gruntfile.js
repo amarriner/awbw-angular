@@ -101,6 +101,14 @@ module.exports = function(grunt) {
                 }
             }
         },
+        mkdir: {
+            all: {
+                options: {
+                    mode: 0755,
+                    create: ['dist']
+                }
+            }
+        },
         processhtml: {
             dist: {
                 files: {
@@ -137,8 +145,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('build', ['clean', 'jshint', 'less', 'concat', 'cssmin', 'uglify', 'processhtml', 'copy']);
+    grunt.registerTask('build', ['clean', 'mkdir', 'jshint', 'less', 'concat', 'cssmin', 'uglify', 'processhtml', 'copy']);
 }
