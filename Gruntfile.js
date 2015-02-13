@@ -30,6 +30,12 @@ module.exports = function(grunt) {
                         cwd: 'app/data',
                         src: '**/*',
                         dest: 'dist/data/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'app',
+                        src: 'favicon.ico',
+                        dest: 'dist/'
                     }
                 ]
             }
