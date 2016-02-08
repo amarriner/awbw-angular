@@ -26,6 +26,7 @@
     "grunt-jsonlint": "^1.0.7",
     "jsonwebtoken": "^5.5.4",
     "mongoose": "^4.4.1",
+    "mustbe": "^0.4.0",
     "underscore": "^1.8.3"
   }
 }
