@@ -12,7 +12,6 @@ module.exports = {
             var allow = false;
             
             if (game.creator._id.equals(user._id)) {
-                console.log('test');
                 allow = true;
             }
             

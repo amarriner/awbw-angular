@@ -9,14 +9,6 @@ var User        = require('../models/user');
 
 router.use(function(req, res, next) {
     
-    // Look at the public API routes defined in the config.js file,
-    // if this is one of those (including request method) allow acces
-    // regardless of token
-    //if(_.find(config.publicApiRoutes, function(obj) { return (obj.path == req.path && obj.method == req.method); })) {
-    //    next();
-    //    return;
-    //}
-    
     req.user = { authenticated: false, success: false };
     
     // Attempt to verify JWT if this is not a public API route
