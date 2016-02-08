@@ -17,6 +17,8 @@ router.get('/', function(req, res) {
     res.json({ message: 'Index Page' });
 });
 
+app.use(express.static('src'));
+
 app.use('/', router);
 
 var authenticateRouter  = require('./app/routes/authenticate');
