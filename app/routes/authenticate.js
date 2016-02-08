@@ -8,20 +8,42 @@ var User        = require('../models/user');
 
 router.route('/')
 
+    //
+    // Only allow authentication by POST method
+    //
     .post(function(req, res) {
-        
+      
+        //
+        // Find the user with the incoming username
+        //
         User.findOne({ username: req.body.username }, function(err, user) {
-            if (err) 
+            if (err) {
                 res.send(err);
-                
+            }
+             
+            //
+            // If we found the user...
+            //
             if (user) {
-                
+              
+                //
+                // Compare the encrypted password in the database to
+                // the incoming one
+                //
                 if (bcrypt.compareSync(req.body.password, user.password)) {
+                    
+                    //
+                    // Generate a JWT
+                    //
                     var token = jwt.sign(user, config.secret, {
                         expiresIn: 60 * 60 * 24 * 7
                     });
                     
+                    //
+                    // Return it as JSON
+                    //
                     res.json({ success: true, message: 'Authenticated successfully', token: token });
+                    
                 }
                 else {
                     res.json({ success: false, message: 'Invalid password' });

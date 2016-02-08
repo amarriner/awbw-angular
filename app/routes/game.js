@@ -10,29 +10,36 @@ var User        = require('../models/user');
 
 router.route('/').
 
+    //
     // Get all games
+    //
     get(function(req, res) {
         
         Game.find().populate('creator').exec(function(err, games) {
-            if(err)
-                res.send(err);
+            if(err) {
+                res.status(500).send(err);
+            }
             
             res.json(games);
         });
         
     })
 
-    // Create new game
+    //
+    // Create new game, must be authenticated
+    //
     .post(mustBe.routeHelpers().authenticated(), function(req, res) {
         
         var game = new Game();
         game.name = req.body.name;
         
         User.findById(req.decoded._doc._id, function(err, user) {
-            if(err)
-                res.send(err);
+            if(err) {
+                res.status(404).send(err);
+            }
             
             game.creator = user;
+            
             game.save(function(err) {
                 if (err)
                     res.send(err);
@@ -45,8 +52,10 @@ router.route('/').
 
 router.route('/:game_id')
 
-    // Delete a game
-    .delete(mustBe.routeHelpers().authenticated(), function(req, res) {
+    //
+    // Delete a game, must be authorized
+    //
+    .delete(mustBe.routeHelpers().authorized('update.game'), function(req, res) {
         Game.remove({
             _id: req.params.game_id
         }, function(err, game) {
@@ -57,7 +66,9 @@ router.route('/:game_id')
         });
     })
 
+    //
     // Get single game
+    //
     .get(function(req, res) {
         
         Game.findById(req.params.game_id, function(err, game) {
@@ -69,7 +80,9 @@ router.route('/:game_id')
         
     })
 
-    // Update a game
+    //
+    // Update a game, must be authorized
+    //
     .put(mustBe.routeHelpers().authorized('update.game'), function(req, res) {
         
         Game.findById(req.params.game_id, function(err, game) {
