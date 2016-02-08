@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="advanceWarsByWeb" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="advanceWarsByWeb" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="advanceWarsByWeb" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="advanceWarsByWeb" class="no-js">
+<!--<![endif]-->
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>amarriner.com</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800' rel='stylesheet' type='text/css'>
+    
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+    
+    <link rel="stylesheet" href="css/app.css">
+    
+    <link rel="icon" type="image/png" href="images/alpha.png">
+
+</head>
+
+<body>
+    
+    <navbar></navbar>
+
+    <div id="content" class="container">
+
+        <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="row">
+            <div class="col-md-9" ng-view></div>
+            
+            <div class="col-md-3" ng-cloak>
+                <div id="github" class="list-group" ng-controller="GithubCtrl">
+                    <a ng-click="" class="list-group-item active">
+                        <span id="github-count" class="badge" ng-show="repoCount">{{repoCount}}</span>
+                        <h4>GitHub</h4>
+                    </a>
+                    <a ng-show="data" ng-repeat="row in data" class="list-group-item link" ng-href="{{row.html_url}}">
+                        <h4>{{row.name}}</h4>
+                        <small class="text-muted">({{row.updated_at.substring(0, 10)}})</small>
+                        <p style="clear:both;">{{row.description}}</p>
+                    </a>
+                </div>
+                
+                <div id="twitter" class="list-group">
+                    <a ng-click="" class="list-group-item active">
+                        <h4>Tweets </h4>
+                    </a>
+                    
+                    <a>
+                        <h4>
+                           <a width="100%" class="twitter-timeline" href="https://twitter.com/amarriner" data-widget-id="532631026334318592" data-chrome="noheader">Tweets by @amarriner</a>
+                           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                        </h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container text-muted text-center">
+            Built with <a href="https://nodejs.org/en/">Node</a>
+        </div>
+    </footer>
+
+    <script src="bower_components/html5-boilerplate/dist/js/main.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="js/controllers/github.js"></script>
+    <script src="js/controllers/navbar.js"></script>
+    <script src="js/services/github.js"></script>
+    
+    <script src="js/app.js"></script>    
+    
+
+</body>
+
+</html>
