@@ -1,13 +1,17 @@
+var mustBe      = require('mustBe');
+var config      = require('../config');
+mustBe.configure(config.mustBeConfig);
+
 var express     = require('express');
 var router      = express.Router();
 
 var Game        = require('../models/game');
 var User        = require('../models/user');
 
-router.route('/')
+router.route('/').
 
     // Get all games
-    .get(function(req, res) {
+    get(function(req, res) {
         
         Game.find().populate('creator').exec(function(err, games) {
             if(err)
@@ -19,7 +23,7 @@ router.route('/')
     })
 
     // Create new game
-    .post(function(req, res) {
+    .post(mustBe.routeHelpers().authenticated(), function(req, res) {
         
         var game = new Game();
         game.name = req.body.name;
@@ -42,7 +46,7 @@ router.route('/')
 router.route('/:game_id')
 
     // Delete a game
-    .delete(function(req, res) {
+    .delete(mustBe.routeHelpers().authenticated(), function(req, res) {
         Game.remove({
             _id: req.params.game_id
         }, function(err, game) {
@@ -66,7 +70,7 @@ router.route('/:game_id')
     })
 
     // Update a game
-    .put(function(req, res) {
+    .put(mustBe.routeHelpers().authorized('update.game'), function(req, res) {
         
         Game.findById(req.params.game_id, function(err, game) {
             

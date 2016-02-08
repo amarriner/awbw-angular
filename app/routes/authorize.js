@@ -5,15 +5,19 @@ var router      = express.Router();
 
 var config      = require('../config');
 
+var User        = require('../models/user');
+
 router.use(function(req, res, next) {
     
     // Look at the public API routes defined in the config.js file,
     // if this is one of those (including request method) allow acces
     // regardless of token
-    if(_.find(config.publicApiRoutes, function(obj) { return (obj.path == req.path && obj.method == req.method); })) {
-        next();
-        return;
-    }
+    //if(_.find(config.publicApiRoutes, function(obj) { return (obj.path == req.path && obj.method == req.method); })) {
+    //    next();
+    //    return;
+    //}
+    
+    req.user = { authenticated: false, success: false };
     
     // Attempt to verify JWT if this is not a public API route
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -24,12 +28,23 @@ router.use(function(req, res, next) {
             
             // Something went wrong in verification, send 401 status
             if (err) {
-                return res.status(401).json({ success: false, message: 'Failed to authenticate token' });
+                req.message = 'Failed to authenticate token';
+                next();
             }
+            
             // Otherwise continue on the route
             else {
-                req.decoded = decoded;
-                next();
+                User.findOne({ username: decoded._doc.username }, function(err, user) {
+                    if (err) { 
+                        req.message = 'Failed to look up user';
+                        next();
+                    }
+                
+                    user.authenticated = true;
+                    req.user = user;
+                    req.decoded = decoded;
+                    next(); 
+                });
             }
             
         });
@@ -37,10 +52,8 @@ router.use(function(req, res, next) {
     
     // If this was not a public route, and no token was given, send 401 status
     else {
-        return res.status(401).send({
-            success: false,
-            message: 'Missing token'
-        });
+        req.message = 'Missing token';
+        next();
     }
     
 });
