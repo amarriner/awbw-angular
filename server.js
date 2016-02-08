@@ -23,12 +23,18 @@ app.use('/', router);
 
 var authenticateRouter  = require('./app/routes/authenticate');
 var authorizeRouter     = require('./app/routes/authorize');
+var coDataRouter        = require('./app/routes/co-data');
+var countryDataRouter   = require('./app/routes/country-data');
 var gameRouter          = require('./app/routes/game');
+var unitDataRouter      = require('./app/routes/unit-data');
 var userRouter          = require('./app/routes/user');
 
 app.use('/' + config.apiPathPrefix + '/authenticate', authenticateRouter);
 app.use(authorizeRouter);
+app.use('/' + config.apiPathPrefix + '/cosData', coDataRouter);
+app.use('/' + config.apiPathPrefix + '/countriesData', countryDataRouter);
 app.use('/' + config.apiPathPrefix + '/games', gameRouter);
+app.use('/' + config.apiPathPrefix + '/unitsData', unitDataRouter);
 app.use('/' + config.apiPathPrefix + '/users', userRouter);
 
 app.listen(port);
