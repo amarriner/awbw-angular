@@ -1,9 +1,13 @@
-var mustBeConfig        = require('./libs/mustbe-config');
-
 module.exports = {
     
     //
+    // Port to serve on
+    //
+    port: process.env.PORT || 8888,
+    
+    //
     // URL to serve API on
+    //
     apiPathPrefix: 'api',
     
     //
@@ -15,10 +19,5 @@ module.exports = {
     // Database connection
     //
     database: 'mongodb://localhost:27017/awbw',
-    
-    // 
-    // Configuration for authorization middleware. See: ./libs/mustbe-config.js
-    //
-    mustBeConfig: mustBeConfig
     
 };

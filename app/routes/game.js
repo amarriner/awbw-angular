@@ -1,12 +1,11 @@
-var mustBe      = require('mustBe');
 var config      = require('../config');
-mustBe.configure(config.mustBeConfig);
-
 var express     = require('express');
 var router      = express.Router();
 
 var Game        = require('../models/game');
 var User        = require('../models/user');
+
+var authorizationChecks = require('../libs/authorization-checks');
 
 router.route('/').
 
@@ -28,7 +27,7 @@ router.route('/').
     //
     // Create new game, must be authenticated
     //
-    .post(mustBe.routeHelpers().authenticated(), function(req, res) {
+    .post(authorizationChecks.isUserAuthenticated, function(req, res) {
         
         var game = new Game();
         game.name = req.body.name;
@@ -55,7 +54,7 @@ router.route('/:game_id')
     //
     // Delete a game, must be authorized
     //
-    .delete(mustBe.routeHelpers().authorized('update.game'), function(req, res) {
+    .delete(authorizationChecks.userCreatedGame, function(req, res) {
         Game.remove({
             _id: req.params.game_id
         }, function(err, game) {
@@ -83,23 +82,16 @@ router.route('/:game_id')
     //
     // Update a game, must be authorized
     //
-    .put(mustBe.routeHelpers().authorized('update.game'), function(req, res) {
+    .put(authorizationChecks.userCreatedGame, function(req, res) {
         
-        Game.findById(req.params.game_id, function(err, game) {
+            req.game.name = req.body.name;
             
-            if (err)
-                res.send(err);
-            
-            game.name = req.body.name;
-            
-            game.save(function(err) {
+            req.game.save(function(err) {
                 if (err)
                     res.send(err);
                 
                 res.json({ message: 'Game updated!' });
             });
-            
-        });
         
     });
         

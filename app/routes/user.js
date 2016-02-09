@@ -1,12 +1,11 @@
-var mustBe      = require('mustBe');
 var config      = require('../config');
-mustBe.configure(config.mustBeConfig);
-
 var bcrypt      = require('bcrypt');
 var express     = require('express');
 var router      = express.Router();
 
 var User        = require('../models/user');
+
+var authorizationChecks = require('../libs/authorization-checks');
 
 router.route('/')
 
@@ -77,7 +76,7 @@ router.route('/:user_id')
     //
     // Update a user
     //
-    .put(mustBe.routeHelpers().authorized('update.user'), function(req, res) {
+    .put(authorizationChecks.userIsAuthenticatedUser, function(req, res) {
         
         User.findById(req.params.user_id, function(err, user) {
             
