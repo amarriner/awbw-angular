@@ -74,6 +74,15 @@ router.route('/:user_id')
     })
 
     //
+    // Get the logged in user
+    //
+    .post(authorizationChecks.isUserAuthenticated, function(req, res) {
+        
+        res.json(req.user);
+        
+    })
+
+    //
     // Update a user
     //
     .put(authorizationChecks.userIsAuthenticatedUser, function(req, res) {

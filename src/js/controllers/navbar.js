@@ -10,8 +10,13 @@
             templateUrl: 'js/views/navbar.html'
         };
     })  
-    .controller('NavbarCtrl', ['$scope', '$window', '$location',
-        function($scope, $window, $location) {
+    .controller('NavbarCtrl', ['$scope', '$window', '$location', 'Login',
+        function($scope, $window, $location, Login) {
+            
+            $scope.currentUser = Login.getCurrentUser;
+            
+            $scope.isUserCollapsed = true;
+            $scope.isMenuCollapsed = true;
             
             $scope.$on('$routeChangeSuccess', function() {
                 $scope.location = $location.path();
@@ -22,6 +27,7 @@
             $scope.menus[1] = true;
             $scope.menus[2] = true;
             
+            
             $scope.resetMenu = function(open) {
                 for (var i = 1; i < $scope.menus.length; i++) {
                     if (open === i) {
@@ -31,6 +37,12 @@
                         $scope.menus[i] = true;
                     }
                 }
+            };
+                      
+            $scope.logout = function() {
+                Login.clearCurrentUser();
+                $window.sessionStorage.token = "";
+                $location.path("/");
             };
             
         }   

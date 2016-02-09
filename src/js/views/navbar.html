@@ -12,8 +12,24 @@
     
         <div id="navbar" class="navbar-collapse collapse" uib-collapse="menus[0]">
             <ul class="nav navbar-nav">
-                <li ng-class="{active: location == '/bots'}" ng-click="menus[0] = !menus[0]"><a href="#/bots">Test</a></li>
-                
+                <!-- <li ng-class="{active: location == '/login'}" ng-click="menus[0] = !menus[0]"><a href="#/login">Login</a></li> -->
+            </ul>
+            
+            <ul id="user-nav-ul" class="nav navbar-nav navbar-right">
+                <li class="dropdown" ng-class="{open: !isUserCollapsed}" ng-click="isUserCollapsed = !isUserCollapsed">
+                    <a class="dropdown-toggle point">
+                        <i class="fa fa-user"></i> <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" uib-collapse="isUserCollapsed">
+                        <li role="presentation" class="dropdown-header" ng-show="currentUser()">{{currentUser().username}}</li>
+                        <li role="presentation" ng-show="!currentUser().username">
+                            <a href="#/login"><i class="fa fa-sign-in"></i> Login</a>
+                        </li>
+                        <li role="presentation" ng-show="currentUser().username">
+                            <a class="point" ng-click="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

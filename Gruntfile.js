@@ -15,6 +15,7 @@ module.exports = function(grunt) {
         htmlangular: {
             options: {
                 customattrs: [
+                    'set-focus',
                     'uib-collapse'
                 ],
                 customtags: [
@@ -47,13 +48,15 @@ module.exports = function(grunt) {
         },
                      
         watch: {
-            js: {
+            lint: {
                 files: [
                     'app/**/*.js', 
                     'Gruntfile.js',
                     'server.js',
                     '*.json', 
-                    '.bowerrc'
+                    '.bowerrc',
+                    'src/js/**/*.js',
+                    'src/js/views/*.html'
                 ],
                 tasks: ['lint']
             },
