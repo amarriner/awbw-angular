@@ -1,49 +1,122 @@
 var Game        = require('../models/game');
 var User        = require('../models/user');
 
+//
+// Private function to check the authenticated property of the given user
+//
+function isUserAuthenticated (user, callback) {
+    if (! user) {
+        callback('Missing user', false);
+    }
+    
+    callback(null, user.authenticated || false);
+}
+
+//
+// Private function to check whether the given user created the given game
+//
+function userCreatedGame(user, gameId, callback) {
+    if (! user) {
+        callback('Missing user', null);
+    }
+    
+    if (! gameId) {
+        callback('Missing game ID', null);
+    }
+    
+    Game.findById(gameId).populate('creator').exec(function(err, game) {
+        if (err) {
+            callback('Error retrieving game', null);
+        }    
+        
+        if (game.creator._id.equals(user._id)) {
+            callback(null, game);
+        }
+        
+        else {
+            callback('Authenticated user did not create this game', null);
+        }
+    });
+}
+
+//
+// Private function to check whether the given user is the game as the authenticated user
+// to make sure a user can only update themselves
+//
+function userIsAuthenticatedUser(user, userId, callback) {
+    if (! user) {
+        callback('Missing user');
+    }
+    
+    if (! userId) {
+        callback('Missing user ID');
+    }
+    
+    if (user._id.equals(userId)) {
+        callback(null);
+    }
+    
+    else {
+        callback('Authenticated user is not this user', null);
+    }
+}
+
 module.exports = {
     
     //
-    // Check to make sure the authenticatedUser from the request object, is the 
-    // same user that is being updated
+    // Checks to see whether a user is authenticated or not.
+    // Wrapper to private isUserAuthenticated function
     //
-    'isUserThisAuthenticatedUser': function(authenticatedUser, userId, callback) {
+    isUserAuthenticated: function(req, res, next) {
         
-        User.findById(userId, function(err, user) {
+        isUserAuthenticated(req.user, function(err, allow) {
             if (err) {
-                callback(err, false);
+                res.status(500).json({ message: 'Error authenticating user', success: false });
             }
             
-            var allow = false;
-            
-            if (authenticatedUser._id.equals(userId)) {
-                allow = true;
+            if (allow) {
+                next();
             }
             
-            callback(null, allow);
+            else {
+                res.status(401).json({ message: 'Not authenticated', success: false });
+            }
         });
         
     },
     
     //
-    // Check to make sure the user who is updating the game, is the creator of that game
+    // Check to make sure the user who is updating the game, is the creator of that game.
+    // Wrapper to private userCreatedGame function
     //
-    'userCreatedGame': function(user, gameId, callback) {
+    userCreatedGame: function(req, res, next) {
         
-        Game.findById(gameId).populate('creator').exec(function(err, game) {
+        userCreatedGame(req.user, req.params.game_id, function(err, game) {
             if (err) {
-                callback(err, false);
-            }
-        
-            var allow = false;
-            
-            if (game.creator._id.equals(user._id)) {
-                allow = true;
+                res.status(401).json({ message: err, success: false });
             }
             
-            callback(null, allow);
-            
+            req.game = game;
+            next();
         });
+        
+    },
+    
+    //
+    // Check to make sure the user is updating only themselves.
+    // Wrapper to private userIsAuthenticatedUser
+    //
+    userIsAuthenticatedUser: function(req, res, next) {
+        
+        userIsAuthenticatedUser(req.user, req.params.user_id, function(err) {
+            if (err) {
+                res.status(401).json({ message: err, success: false });
+            }
+            
+            else {
+                next();
+            }
+        }); 
         
     }
     

@@ -9,7 +9,7 @@ mongoose.connect(config.database);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;
+var port = config.port;
 
 var router = express.Router();
 
