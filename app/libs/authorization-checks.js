@@ -40,6 +40,33 @@ function userCreatedGame(user, gameId, callback) {
 }
 
 //
+// Private function to check whether the given user created the given map
+//
+function userCreatedMap(user, mapId, callback) {
+    if (! user) {
+        callback('Missing user', null);
+    }
+    
+    if (! mapId) {
+        callback('Missing map ID', null);
+    }
+    
+    Map.findById(mapId).populate('creator').exec(function(err, map) {
+        if (err) {
+            callback('Error retrieving map', null);
+        }
+        
+        if (map.creator._id.equals(user._id)) {
+            callback(null, map);
+        }
+        
+        else {
+            callback('Authenticated user did not create this map', null);
+        }
+    });
+}
+
+//
 // Private function to check whether the given user is the game as the authenticated user
 // to make sure a user can only update themselves
 //
@@ -86,7 +113,7 @@ module.exports = {
     },
     
     //
-    // Check to make sure the user who is updating the game, is the creator of that game.
+    // Check to make sure the user who is updating the game is the creator of that game.
     // Wrapper to private userCreatedGame function
     //
     userCreatedGame: function(req, res, next) {
@@ -96,8 +123,29 @@ module.exports = {
                 res.status(401).json({ message: err, success: false });
             }
             
-            req.game = game;
-            next();
+            else {
+                req.game = game;
+                next();
+            }
+        });
+        
+    },
+    
+    //
+    // Check to make sure the user who is updating the map is the creator of that map.
+    // Wrapper to private userCreatedMap function
+    //
+    userCreatedMap: function(req, res, next) {
+        
+        userCreatedMap(req.user, req.params.map_id, function(err, map) {
+            if (err) {
+                res.status(401).json({ message: err, success: false });
+            }
+            
+            else {
+                req.map = map;
+                next();
+            }
         });
         
     },

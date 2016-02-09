@@ -1,0 +1,91 @@
+[{
+	"id": 0,
+	"name": "Plain",
+	"defense": "1",
+	"offset": "0"
+}, {
+	"id": 1,
+	"name": "Mountain",
+	"defense": "4",
+	"offset": "5"
+}, {
+	"id": 2,
+	"name": "Wood",
+	"defense": "2",
+	"offset": "0"
+}, {
+	"id": 3,
+	"name": "River",
+	"defense": "0",
+	"offset": "0"
+}, {
+	"id": 4,
+	"name": "Road",
+	"defense": "0",
+	"offset": "0"
+}, {
+	"id": 5,
+	"name": "Bridge",
+	"defense": "0",
+	"offset": "0"
+}, {
+	"id": 6,
+	"name": "Sea",
+	"defense": "0",
+	"offset": "0"
+}, {
+	"id": 7,
+	"name": "Shoal",
+	"defense": "0",
+	"offset": "0"
+}, {
+	"id": 8,
+	"name": "Reef",
+	"defense": "1",
+	"offset": "0"
+}, {
+	"id": 9,
+	"name": "City",
+	"defense": "3",
+	"offset": "6"
+}, {
+	"id": 10,
+	"name": "Base",
+	"defense": "3",
+	"offset": "9"
+}, {
+	"id": 11,
+	"name": "Airport",
+	"defense": "3",
+	"offset": "2"
+}, {
+	"id": 12,
+	"name": "Port",
+	"defense": "3",
+	"offset": "6"
+}, {
+	"id": 13,
+	"name": "HQ",
+	"defense": "4",
+	"offset": "15"
+}, {
+	"id": 14,
+	"name": "Pipe",
+	"defense": "0",
+	"offset": "0"
+}, {
+	"id": 15,
+	"name": "Missile Silo",
+	"defense": "3",
+	"offset": "8"
+}, {
+	"id": 16,
+	"name": "Com Tower",
+	"defense": "3",
+	"offset": "9"
+}, {
+	"id": 17,
+	"name": "Lab",
+	"defense": "3",
+	"offset": "8"
+}]

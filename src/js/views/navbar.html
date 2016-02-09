@@ -12,7 +12,12 @@
     
         <div id="navbar" class="navbar-collapse collapse" uib-collapse="menus[0]">
             <ul class="nav navbar-nav">
-                <!-- <li ng-class="{active: location == '/login'}" ng-click="menus[0] = !menus[0]"><a href="#/login">Login</a></li> -->
+                <li class="dropdown" ng-click="menus[1] = !menus[1]">
+                    <a class="dropdown-toggle point">Charts <i class="caret"></i></a>
+                    <ul class="dropdown-menu" role="menu" uib-collapse="menus[1]">
+                        <li role="presentation"><a href="#/co-data">CO Data</a></li>
+                    </ul>
+                </li>
             </ul>
             
             <ul id="user-nav-ul" class="nav navbar-nav navbar-right">

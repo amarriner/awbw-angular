@@ -4,6 +4,8 @@
     var module = angular.module('advanceWarsByWeb', [
         'ngRoute',
         'ui.bootstrap',
+        'advanceWarsByWeb.coData',
+        'advanceWarsByWeb.dataService',
         'advanceWarsByWeb.login',
         'advanceWarsByWeb.loginService',
         'advanceWarsByWeb.navbar'

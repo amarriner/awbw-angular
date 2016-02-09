@@ -20,6 +20,9 @@ module.exports = function(grunt) {
                 ],
                 customtags: [
                 ],
+                relaxerror: [
+                    "is missing required attribute"
+                ],
                 reportpath: null,
                 reportCheckstylePath: null,
                 tmplext: 'html'
