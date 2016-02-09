@@ -26,15 +26,19 @@ var authorizeRouter     = require('./app/routes/authorize');
 var coDataRouter        = require('./app/routes/co-data');
 var countryDataRouter   = require('./app/routes/country-data');
 var gameRouter          = require('./app/routes/game');
+var mapRouter           = require('./app/routes/map');
+var terrainRouter       = require('./app/routes/terrain-data');
 var unitDataRouter      = require('./app/routes/unit-data');
 var userRouter          = require('./app/routes/user');
 
 app.use('/' + config.apiPathPrefix + '/authenticate', authenticateRouter);
 app.use(authorizeRouter);
-app.use('/' + config.apiPathPrefix + '/cosData', coDataRouter);
-app.use('/' + config.apiPathPrefix + '/countriesData', countryDataRouter);
+app.use('/' + config.apiPathPrefix + '/cos-data', coDataRouter);
+app.use('/' + config.apiPathPrefix + '/countries-data', countryDataRouter);
 app.use('/' + config.apiPathPrefix + '/games', gameRouter);
-app.use('/' + config.apiPathPrefix + '/unitsData', unitDataRouter);
+app.use('/' + config.apiPathPrefix + '/maps', mapRouter);
+app.use('/' + config.apiPathPrefix + '/terrain-data', terrainRouter);
+app.use('/' + config.apiPathPrefix + '/units-data', unitDataRouter);
 app.use('/' + config.apiPathPrefix + '/users', userRouter);
 
 app.listen(port);
