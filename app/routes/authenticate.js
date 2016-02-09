@@ -18,7 +18,7 @@ router.route('/')
         //
         User.findOne({ username: req.body.username }, function(err, user) {
             if (err) {
-                res.send(err);
+                res.status(401).json({ success: false, message: err });
             }
              
             //
@@ -42,16 +42,16 @@ router.route('/')
                     //
                     // Return it as JSON
                     //
-                    res.json({ success: true, message: 'Authenticated successfully', token: token });
+                    res.json({ success: true, message: 'Authenticated successfully', token: token, user: user });
                     
                 }
                 else {
-                    res.json({ success: false, message: 'Invalid password' });
+                    res.status(401).json({ success: false, message: 'Invalid password' });
                 }
                 
             }
             else {
-                res.json({ success: false, message: 'Invalid username' });
+                res.status(401).json({ success: false, message: 'Invalid username' });
             }
         });
         
