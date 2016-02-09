@@ -15,6 +15,9 @@ module.exports = function(grunt) {
         htmlangular: {
             options: {
                 customattrs: [
+                    'context-menu-callback',
+                    'context-menu-click',
+                    'context-menu-items',
                     'set-focus',
                     'uib-collapse'
                 ],
