@@ -6749,3 +6749,16 @@ h4 {
 .point {
   cursor: pointer;
 }
+.base {
+  position: relative;
+  margin-top: -9px;
+}
+.hq {
+  position: relative;
+  margin-top: -15px;
+}
+.game-map-row {
+  height: 16px;
+  margin: 0;
+  padding: 0;
+}

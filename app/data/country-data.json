@@ -13,4 +13,7 @@
 }, {
 	"name": "Black Hole",
 	"abbreviation": "bh"
+}, {
+    "name": "Neutral",
+    "abbreviation": "neutral"
 }]
