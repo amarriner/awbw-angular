@@ -12,20 +12,40 @@
 
     .controller('MapCtrl', ['$scope', 'Map', 'Data',
         function($scope, Map, Data) {
+            
+            /*
+            $scope.getCountries = function(err, callback) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
                 
+                Data.getCountryData().then(function(response) {
+                    console.log('Found country data');
+                    $scope.countries = response.data;
+                    callback(null);
+                }).catch(function(response) {
+                    callback('Error getting country data'); 
+                });
+            }
+            
+            $scope.getTerrain = function(callback) {
+                Data.getTerrainData().then(function(response) {
+                    console.log('Found terrain data');
+                    $scope.terrain = response.data;
+                    callback(null);
+                }).catch(function(response) {
+                    callback('Error getting terrain data'); 
+                });                                           
+            }
+
+            
+            $scope.getTerrain($scope.getCountryData);
+            */
+            
             Data.getUnitData().then(function(response) {
                 
                 $scope.units = response.data;
-                
-                $scope.unitMenu = [];
-                
-                for (var i = 0; i < $scope.units.length; i++) {
-                    var unit = $scope.units[i];
-                    
-                    if (unit.movementType == 'T') {
-                        $scope.unitMenu.push({ title: unit.name, fn: function() { $scope.clicked(i);} });
-                    }
-                };
                 
                 Data.getCountryData().then(function(response) {
                 
@@ -59,11 +79,17 @@
                 return input;
             }
             
-            $scope.clicked = function(unitId) {
-                console.log(unitId);
-                console.log('clicked ' + $scope.units[unitId].name + ' from inside the controller');
+            $scope.getTerrainClass = function(i) {
+                return $scope.getCountry(i) + $scope.getTerrainName(i);
             }
             
+            $scope.getCountry = function(i) {
+                return ($scope.map.tiles[i].country || '');
+            }
+            
+            $scope.getTerrainName = function (i) {
+                return $scope.terrain[$scope.map.tiles[i].terrain].name.toLowerCase();
+            }
 
         }   
     ]);

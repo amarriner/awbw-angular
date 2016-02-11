@@ -1,7 +1,6 @@
 <h2>{{map.name}}</h2>
 
-<div class="game-map-row" ng-repeat="y in range(0, (map.tiles.length / map.width) - 1)">
-
-    <img context-menu-click="{{terrain[map.tiles[x + (y * map.width)].terrain].name.toLowerCase() == 'base'}}" context-menu-items="unitMenu" class="{{terrain[map.tiles[x + (y * map.width)].terrain].name.toLowerCase()}}" ng-repeat="x in range(0, map.width - 1)" ng-src="images/aw1/{{ map.tiles[x + (y * map.width)].country || null }}{{terrain[map.tiles[x + (y * map.width)].terrain].name.toLowerCase()}}.gif" alt="map"> 
-    
-</div>
+<header ng-repeat-start="i in range(0, map.tiles.length - 1)">
+    <a uib-popover-template="'js/views/unit-menu.html'" popover-title="Unit Menu" popover-trigger="outsideClick" class="aw1-map-sprite aw1-{{getTerrainClass(i)}}" ng-class="{clear: i % map.width == 0}"></a>
+</header>
+<footer ng-repeat-end></footer>

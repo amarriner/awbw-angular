@@ -18,8 +18,11 @@ module.exports = function(grunt) {
                     'context-menu-callback',
                     'context-menu-click',
                     'context-menu-items',
+                    'popover-title',
+                    'popover-trigger',
                     'set-focus',
-                    'uib-collapse'
+                    'uib-collapse',
+                    'uib-popover-template'
                 ],
                 customtags: [
                 ],
@@ -48,7 +51,7 @@ module.exports = function(grunt) {
         less: {
             app: {
                 files: {
-                    "src/css/app.css": "src/less/app.less"
+                    "src/css/app.css": "src/less/*.less"
                 }
             }
         },
@@ -68,7 +71,7 @@ module.exports = function(grunt) {
             },
                      
             less: {
-                files: 'src/less/app.less',
+                files: 'src/less/*.less',
                 tasks: ['less']
             },
         }             
