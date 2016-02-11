@@ -24,6 +24,6 @@
     "angular-route": "~1.5.0",
     "angular-bootstrap": "~1.1.2",
     "bootstrap": "~3.3.6",
-    "basicContext": "~3.5.1"
+    "angular-resource": "~1.5.0"
   }
 }
