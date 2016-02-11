@@ -9,13 +9,7 @@ router.route('/').
     //
     get(function(req, res) {
         
-       fs.readFile('./app/data/unit-data.json', function(err, data) {
-           if (err) {
-               res.status(404).send(err);
-           }
-           
-           res.json(JSON.parse(data));
-       });
+        res.json(require('../data/unit-data'));
         
     });
         
