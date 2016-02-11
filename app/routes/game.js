@@ -1,11 +1,26 @@
 var config      = require('../config');
 var express     = require('express');
 var router      = express.Router();
+var slug        = require('slug');
 
 var Game        = require('../models/game');
 var User        = require('../models/user');
 
 var authorizationChecks = require('../libs/authorization-checks');
+
+function generateSlug(name, callback) {
+    var gameSlug = slug(name);
+    
+    Game.count({ slug: new RegExp('^' + gameSlug + '(-([0-9])+)?$') }, function(err, c) {
+       
+        if (c === 0) {
+            return callback(null, gameSlug);
+        }
+        
+        return callback(null, slug(name + '-' + c));
+        
+    });
+}
 
 router.route('/').
 
@@ -30,7 +45,6 @@ router.route('/').
     .post(authorizationChecks.isUserAuthenticated, function(req, res) {
         
         var game = new Game();
-        game.name = req.body.name;
         
         User.findById(req.decoded._doc._id, function(err, user) {
             if(err) {
@@ -38,12 +52,18 @@ router.route('/').
             }
             
             game.creator = user;
-            
-            game.save(function(err) {
-                if (err)
-                    res.send(err);
+            game.name = req.body.name;
+            generateSlug(req.body.name, function(err, s) {
+                
+                game.slug = s;
+                
+                game.save(function(err) {
+                    if (err)
+                        res.send(err);
         
-                res.json({ message: 'Game Created' });
+                    res.json({ message: 'Game Created' });
+                });
+        
             });
         });
         
