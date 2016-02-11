@@ -18,6 +18,7 @@ module.exports = function(grunt) {
                     'context-menu-callback',
                     'context-menu-click',
                     'context-menu-items',
+                    'popover-placement',
                     'popover-title',
                     'popover-trigger',
                     'set-focus',
@@ -25,6 +26,7 @@ module.exports = function(grunt) {
                     'uib-popover-template'
                 ],
                 customtags: [
+                    'tile'
                 ],
                 relaxerror: [
                     "is missing required attribute"
@@ -43,7 +45,8 @@ module.exports = function(grunt) {
                 src: [
                     'bower.json',
                     'package.json',
-                    'app/data/*.json'
+                    'app/data/*.json',
+                    'src/js/data/*.json'
                 ]
             }
         },
@@ -62,9 +65,11 @@ module.exports = function(grunt) {
                     'app/**/*.js', 
                     'Gruntfile.js',
                     'server.js',
+                    'bootstrap.js',
                     '*.json', 
                     '.bowerrc',
                     'src/js/**/*.js',
+                    'src/js/data/*.json',
                     'src/js/views/*.html'
                 ],
                 tasks: ['lint']
