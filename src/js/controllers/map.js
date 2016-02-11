@@ -41,7 +41,11 @@
 
             
             $scope.getTerrain($scope.getCountryData);
-            */
+            */                
+            
+            Data.getMenuData().then(function(response) {
+                $scope.menuData = response;
+            });
             
             Data.getUnitData().then(function(response) {
                 

@@ -2,6 +2,7 @@
     'use strict';
 
     var module = angular.module('advanceWarsByWeb', [
+        'ngResource',
         'ngRoute',
         'ui.bootstrap',
         'ui.bootstrap.popover',
@@ -33,6 +34,14 @@
                     });
 
                 }
+            };
+        }
+    ])
+    .directive('tile', [
+        function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'js/views/tile.html'    
             };
         }
     ]);

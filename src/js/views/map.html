@@ -1,6 +1,3 @@
 <h2>{{map.name}}</h2>
 
-<header ng-repeat-start="i in range(0, map.tiles.length - 1)">
-    <a uib-popover-template="'js/views/unit-menu.html'" popover-title="Unit Menu" popover-trigger="outsideClick" class="aw1-map-sprite aw1-{{getTerrainClass(i)}}" ng-class="{clear: i % map.width == 0}"></a>
-</header>
-<footer ng-repeat-end></footer>
+<tile ng-repeat="i in range(0, map.tiles.length - 1)"></tile>

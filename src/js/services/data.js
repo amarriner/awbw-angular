@@ -1,8 +1,10 @@
 (function() {
     'use strict';
 
-    angular.module('advanceWarsByWeb.dataService', []).factory('Data', ['$http',
-        function($http) {
+    angular.module('advanceWarsByWeb.dataService', []).factory('Data', ['$http', '$resource', '$q',
+        function($http, $resource, $q) {
+            
+            var menuData;
             
             return {
                 getCoData: function() {
@@ -43,7 +45,26 @@
                         .error(function(response) {
                             return response;
                         });
+                },
+                
+                getMenuData: function() {
+                    
+                    return $q(function(resolve, reject) {
+                        
+                        if (menuData) {
+                            resolve(menuData);
+                            return;
+                        }
+
+                        $resource('js/data/menu.json').get().$promise.then(function(response) {
+                            menuData = response;
+                            resolve(response);
+                        });
+                            
+                    });
+
                 }
+                
            };
             
         }

@@ -6724,10 +6724,13 @@ button.close {
     display: none !important;
   }
 }
-a.clear {
+div.clear {
   clear: both;
 }
-a.aw1-map-sprite {
+.spritesheet {
+  background: url('../images/aw1-sprites.png') no-repeat;
+}
+div.aw1-map-sprite {
   background: url('../images/aw1-sprites.png') no-repeat;
   display: block;
   float: left;
@@ -6735,34 +6738,123 @@ a.aw1-map-sprite {
   position: relative;
   width: 16px;
 }
-a.aw1-plain {
-  background-position: -21px -36px;
+div.aw1-map-sprite a {
+  bottom: 0;
+  display: block;
+  height: 16px;
+  left: 0;
+  position: absolute;
+  width: 16px;
 }
-a.aw1-road {
-  background-position: 0 -36px;
+div.aw1-map-sprite .popover-content {
+  min-width: 200px;
 }
-a.aw1-wood {
-  background-position: -63px 0;
+div.aw1-plain {
+  background-position: -210px 0;
 }
-a.aw1-osbase {
+div.aw1-road {
+  background-position: -147px 0;
+}
+div.aw1-wood {
+  background-position: -210px -21px;
+}
+div.aw1-osbase {
   background-position: -42px -30px;
   height: 25px;
   margin-top: -9px;
 }
-a.aw1-oshq {
+div.aw1-oshq {
   background-position: -21px 0;
   height: 31px;
   margin-top: -15px;
 }
-a.aw1-bmbase {
+div.aw1-bmbase {
   background-position: -42px 0;
   height: 25px;
   margin-top: -9px;
 }
-a.aw1-bmhq {
+div.aw1-bmhq {
   background-position: 0 -1px;
   height: 30px;
   margin-top: -14px;
+}
+div.aw1-osinfantry {
+  background-position: -231px -21px;
+}
+div.aw1-osmech {
+  background-position: -147px -42px;
+}
+div.aw1-osapc {
+  background-position: -231px -41px;
+}
+div.aw1-ostank {
+  background-position: -209px -82px;
+}
+div.aw1-osmdtank {
+  background-position: -127px -63px;
+}
+div.aw1-osneotank {
+  background-position: -148px -84px;
+}
+div.aw1-osmegatank {
+  background-position: -168px -42px;
+}
+div.aw1-osartillery {
+  background-position: -127px -63px;
+}
+div.aw1-osantiair {
+  background-position: -147px -21px;
+}
+div.aw1-osrecon {
+  background-position: -230px -60px;
+}
+div.aw1-osrocket {
+  background-position: -210px -62px;
+}
+div.aw1-osmissile {
+  background-position: -231px 0;
+}
+div.aw1-ospiperunner {
+  background-position: -147px -63px;
+}
+div.aw1-bminfantry {
+  background-position: -1px -57px;
+}
+div.aw1-bmmech {
+  background-position: -21px -78px;
+}
+div.aw1-bmapc {
+  background-position: -22px -37px;
+}
+div.aw1-bmtank {
+  background-position: -127px -1px;
+}
+div.aw1-bmmdtank {
+  background-position: 0 -78px;
+}
+div.aw1-bmneotank {
+  background-position: -63px -64px;
+}
+div.aw1-bmmegatank {
+  background-position: -42px -60px;
+}
+div.aw1-bmartillery {
+  background-position: -63px 0;
+}
+div.aw1-bmantiair {
+  background-position: 0 -36px;
+}
+div.aw1-bmrecon {
+  background-position: -85px -64px;
+}
+div.aw1-bmrocket {
+  background-position: -85px -84px;
+}
+div.aw1-bmmissile {
+  background-position: -43px -81px;
+}
+div.aw1-bmpiperunner {
+  background-position: -63px -84px;
 }
 body {
   font-family: 'Open Sans', sans-serif;
@@ -6790,10 +6882,13 @@ h4 {
   cursor: pointer;
 }
 
-a.clear {
+div.clear {
   clear: both;
 }
-a.aw1-map-sprite {
+.spritesheet {
+  background: url('../images/aw1-sprites.png') no-repeat;
+}
+div.aw1-map-sprite {
   background: url('../images/aw1-sprites.png') no-repeat;
   display: block;
   float: left;
@@ -6801,32 +6896,121 @@ a.aw1-map-sprite {
   position: relative;
   width: 16px;
 }
-a.aw1-plain {
-  background-position: -21px -36px;
+div.aw1-map-sprite a {
+  bottom: 0;
+  display: block;
+  height: 16px;
+  left: 0;
+  position: absolute;
+  width: 16px;
 }
-a.aw1-road {
-  background-position: 0 -36px;
+div.aw1-map-sprite .popover-content {
+  min-width: 200px;
 }
-a.aw1-wood {
-  background-position: -63px 0;
+div.aw1-plain {
+  background-position: -210px 0;
 }
-a.aw1-osbase {
+div.aw1-road {
+  background-position: -147px 0;
+}
+div.aw1-wood {
+  background-position: -210px -21px;
+}
+div.aw1-osbase {
   background-position: -42px -30px;
   height: 25px;
   margin-top: -9px;
 }
-a.aw1-oshq {
+div.aw1-oshq {
   background-position: -21px 0;
   height: 31px;
   margin-top: -15px;
 }
-a.aw1-bmbase {
+div.aw1-bmbase {
   background-position: -42px 0;
   height: 25px;
   margin-top: -9px;
 }
-a.aw1-bmhq {
+div.aw1-bmhq {
   background-position: 0 -1px;
   height: 30px;
   margin-top: -14px;
+}
+div.aw1-osinfantry {
+  background-position: -231px -21px;
+}
+div.aw1-osmech {
+  background-position: -147px -42px;
+}
+div.aw1-osapc {
+  background-position: -231px -41px;
+}
+div.aw1-ostank {
+  background-position: -209px -82px;
+}
+div.aw1-osmdtank {
+  background-position: -127px -63px;
+}
+div.aw1-osneotank {
+  background-position: -148px -84px;
+}
+div.aw1-osmegatank {
+  background-position: -168px -42px;
+}
+div.aw1-osartillery {
+  background-position: -127px -63px;
+}
+div.aw1-osantiair {
+  background-position: -147px -21px;
+}
+div.aw1-osrecon {
+  background-position: -230px -60px;
+}
+div.aw1-osrocket {
+  background-position: -210px -62px;
+}
+div.aw1-osmissile {
+  background-position: -231px 0;
+}
+div.aw1-ospiperunner {
+  background-position: -147px -63px;
+}
+div.aw1-bminfantry {
+  background-position: -1px -57px;
+}
+div.aw1-bmmech {
+  background-position: -21px -78px;
+}
+div.aw1-bmapc {
+  background-position: -22px -37px;
+}
+div.aw1-bmtank {
+  background-position: -127px -1px;
+}
+div.aw1-bmmdtank {
+  background-position: 0 -78px;
+}
+div.aw1-bmneotank {
+  background-position: -63px -64px;
+}
+div.aw1-bmmegatank {
+  background-position: -42px -60px;
+}
+div.aw1-bmartillery {
+  background-position: -63px 0;
+}
+div.aw1-bmantiair {
+  background-position: 0 -36px;
+}
+div.aw1-bmrecon {
+  background-position: -85px -64px;
+}
+div.aw1-bmrocket {
+  background-position: -85px -84px;
+}
+div.aw1-bmmissile {
+  background-position: -43px -81px;
+}
+div.aw1-bmpiperunner {
+  background-position: -63px -84px;
 }
