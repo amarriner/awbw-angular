@@ -9,7 +9,13 @@ router.route('/').
     //
     get(function(req, res) {
         
-        res.json(require('../data/unit-data'));
+        var units = require('../data/unit-data');
+        for (var i = 0; i < units.length; i++) {
+            units[i].id = i;
+            units[i].filename = units[i].name.replace(' ', '').replace('-', '').replace('.', '').toLowerCase();
+        }
+    
+        res.json(units);
         
     });
         
