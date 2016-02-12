@@ -9,10 +9,10 @@
             return {
                 authenticate: function(credentials) {
                     return $http.post('/api/authenticate', credentials)
-                        .success(function(response) {
+                        .then(function(response) {
                             return response;
                         })
-                        .error(function(response) {
+                        .catch(function(response) {
                             $window.sessionStorage.token = "";
                             return response;
                         });
@@ -23,6 +23,7 @@
                 },
             
                 getCurrentUser: function() {
+                    console.log('getting user ' + JSON.stringify(currentUser));
                     return currentUser;
                 },
                     
@@ -31,11 +32,12 @@
                     if (user) {
                         return $q(function(resolve, reject) {
                             currentUser = user;
+                            resolve(currentUser);
                         });   
                     }
                     
                     return $http.get('/api/authenticate')
-                        .success(function(response) {
+                        .then(function(response) {
                             currentUser = response.user;
                             return response;
                         });

@@ -62,7 +62,7 @@ router.use(function(req, res, next) {
     }
     
     //
-    // Send 401 status if no token was supplied
+    // No token was supplied
     //
     else {
         req.message = 'Missing token';

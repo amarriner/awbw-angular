@@ -1,6 +1,7 @@
 var mongoose        = require('mongoose');
 var Schema          = mongoose.Schema;
 
+var Map             = require('./map');
 var User            = require('./user');
 
 var GameSchema      = new Schema({
@@ -9,6 +10,10 @@ var GameSchema      = new Schema({
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    map: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Map'
     }
 });
 

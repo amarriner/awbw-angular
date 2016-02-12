@@ -25,7 +25,7 @@
                 $scope.terrain = response.terrainData;
                 
                 Map.get($routeParams.slug).then(function(response) {
-                    $scope.map = response; 
+                    $scope.map = response.data; 
                 });
                 
             });
@@ -51,7 +51,7 @@
         function($scope, Map) {
             
             Map.get().then(function(response) {
-                $scope.maps = response;
+                $scope.maps = response.data;
             });
             
         }

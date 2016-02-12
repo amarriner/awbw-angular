@@ -23,6 +23,25 @@ module.exports = {
     },
     
     //
+    // Abstract promise wrapper to find a model by a slug
+    //
+    findModelBySlug: function(slug, Model) {
+    
+        var deferred = Q.defer();
+        Model.findOne({slug: slug}, function(err, model) {
+            if (err) {
+                deferred.reject(err);
+                return;
+            }
+            
+            deferred.resolve(model);
+        
+        });
+        
+        return deferred.promise;
+    },
+    
+    //
     // Abstract promise wrapper to generating a slug based on the 
     // incoming string. Will check for a Model with the generated 
     // slug, and if one is found will increment to ensure 
@@ -63,8 +82,8 @@ module.exports = {
                 deferred.reject(err);
                 return;
             }
-            
-            deferred.resolve();
+
+            deferred.resolve(model);
         });
         
         return deferred.promise;

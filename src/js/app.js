@@ -9,6 +9,8 @@
         'ui.bootstrap.popover',
         'advanceWarsByWeb.coData',
         'advanceWarsByWeb.dataService',
+        'advanceWarsByWeb.game',
+        'advanceWarsByWeb.gameService',
         'advanceWarsByWeb.login',
         'advanceWarsByWeb.loginService',
         'advanceWarsByWeb.map',
@@ -48,4 +50,40 @@
         }
     ]);
 
+    module.factory('authInterceptor', ['$window', '$location', '$q',
+        function($window, $location, $q) {
+            return {
+                request: function(config) {
+                    config.headers = config.headers || {};
+                    if ($window.sessionStorage.token) {
+                        config.headers['x-access-token'] = $window.sessionStorage.token;
+                    }
+
+                    return config;
+                },
+            
+                response: function(response) {
+                    return response;
+                },
+            
+                responseError: function(rejection) {
+
+                    if ($location.path() !== "/login") {
+                        $window.sessionStorage.previousLocation = $location.path();
+                
+                        // if (rejection.status === 401) {
+                        //     $location.path('/login');
+                        // }
+                    }
+                
+                    return $q.reject(rejection);
+                }
+            };
+        }
+    ]).config(['$httpProvider',
+        function($httpProvider) {
+            $httpProvider.interceptors.push('authInterceptor');
+        }
+    ]);
+    
 } ());

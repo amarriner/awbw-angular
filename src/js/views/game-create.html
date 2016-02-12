@@ -1,0 +1,24 @@
+<h2>Create Game</h2>
+
+<div class="container-fluid">
+    <form ng-submit="createGame()">
+    
+        <div class="form-group">
+            <label for="game-name">Name</label> <i class="fa fa-asterisk text-danger"></i>
+            <input id="game-name" name="game-name" type="text" class="form-control" ng-model="game.name">
+        </div>
+        
+        <div class="form-group">
+            <label for="game-map">Map</label> <i class="fa fa-asterisk text-danger"></i>
+            <select id="game-map" name="game-map" class="form-control" ng-model="game.map"> 
+                <option ng-repeat="map in maps" ng-value="map.slug">{{map.name}}</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" ng-disabled="bD"><i class="fa" ng-class="{'fa-plus-circle': !bD, 'fa-cog': bD, 'fa-spin': bD}"></i> Create</button>
+            <span class="text-danger"><i class="fa fa-asterisk"></i> Required</span>
+        </div>
+        
+    </form>
+</div>
