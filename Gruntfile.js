@@ -12,7 +12,8 @@ module.exports = function(grunt) {
                 src: [
                     'src/bower_components/html5-boilerplate/dist/css/main.css',
                     'src/bower_components/html5-boilerplate/dist/css/normalize.css',
-                    'src/bower_components/font-awesome/css/font-awesome.css'
+                    'src/bower_components/font-awesome/css/font-awesome.css',
+                    'src/bower_components/sweetalert/dist/sweetalert.css'
                 ],
                 dest: 'src/css/libs.css'
             }
@@ -186,7 +187,9 @@ module.exports = function(grunt) {
                         'src/bower_components/angular/angular.js',
                         'src/bower_components/angular-resource/angular-resource.js',
                         'src/bower_components/angular-route/angular-route.js',
-                        'src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js'
+                        'src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+                        'bower_components/sweetalert/dist/sweetalert-dev.js',
+                        'bower_components/ngSweetAlert/SweetAlert.js'
                     ]
                 }
             },
