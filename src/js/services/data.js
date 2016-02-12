@@ -8,7 +8,7 @@
             
             return {
                 getCoData: function() {
-                    return $http.get('http://localhost:8888/api/cos-data')
+                    return $http.get('/api/cos-data')
                         .success(function(response) {
                             return response;
                         })
@@ -18,7 +18,7 @@
                 },
                 
                 getCountryData: function() {
-                    return $http.get('http://localhost:8888/api/countries-data')
+                    return $http.get('/api/countries-data')
                         .success(function(response) {
                             return response;
                         })
@@ -28,7 +28,7 @@
                 },
                 
                 getTerrainData: function() {
-                    return $http.get('http://localhost:8888/api/terrain-data')
+                    return $http.get('/api/terrain-data')
                         .success(function(response) {
                             return response;
                         })
@@ -38,7 +38,7 @@
                 },
                 
                 getUnitData: function() {
-                    return $http.get('http://localhost:8888/api/units-data')
+                    return $http.get('/api/units-data')
                         .success(function(response) {
                             return response;
                         })

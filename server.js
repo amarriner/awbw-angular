@@ -2,6 +2,7 @@ var express     = require('express');
 var app         = express();
 var bodyParser  = require('body-parser');
 var config      = require('./app/config');
+var colors      = require('colors');
 
 var mongoose    = require('mongoose');
 mongoose.connect(config.database);
@@ -17,7 +18,8 @@ router.get('/', function(req, res) {
     res.json({ message: 'Index Page' });
 });
 
-app.use(express.static('src'));
+var environment = process.env.NODE_ENV || 'development';
+app.use(express.static((environment == 'production' ? 'dist' : 'src')));
 
 app.use('/', router);
 
@@ -42,4 +44,10 @@ app.use('/' + config.apiPathPrefix + '/units-data', unitDataRouter);
 app.use('/' + config.apiPathPrefix + '/users', userRouter);
 
 app.listen(port);
+if (! process.env.SECRET) {
+    console.log('\n ************************************************************************'.red);
+    console.log(' * NO SECRET ENVIRONMENT VARIABLE SET, YOU SHOULD FIX THIS IMMEDIATELY! *'.red);
+    console.log(' ************************************************************************\n'.red);
+}
+console.log('Running in ' + environment);
 console.log('Listening on port ' + port);
