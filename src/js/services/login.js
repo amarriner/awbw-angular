@@ -8,7 +8,7 @@
             
             return {
                 authenticate: function(credentials) {
-                    return $http.post('http://localhost:8888/api/authenticate', credentials)
+                    return $http.post('/api/authenticate', credentials)
                         .success(function(response) {
                             return response;
                         })
@@ -35,7 +35,7 @@
                         });   
                     }
                     
-                    return $http.get('http://localhost:8888/api/authenticate')
+                    return $http.get('/api/authenticate')
                         .success(function(response) {
                             currentUser = response.user;
                             return response;
