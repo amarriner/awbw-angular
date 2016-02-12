@@ -4,44 +4,51 @@ var Q           = require('q');
 var router      = express.Router();
 
 var Game        = require('../models/game');
+var Map         = require('../models/map');
 var User        = require('../models/user');
 
 var utils               = require('../libs/utils');
 var authorizationChecks = require('../libs/authorization-checks');
 
 //
-// Promise wrapper to grabbing a user model and setting it as
-// the game's creator
+// Promise wrapper to generating a slug for this game's name
 //
-function setCreator(userId, game) {
+function setSlug(req) {
     
     var deferred = Q.defer();
     
-    utils.findModelById(userId, User).then(function(user) {
+    utils.generateSlug(req.game.name, Game).then(function(slug) {
+        if (! slug) {
+            deferred.reject('Error generating game slug');
+            return;
+        }
         
-        game.creator = user;
-        deferred.resolve(game);
-        
+        req.game.slug = slug;
+        deferred.resolve(req);
+                                             
     }).catch(function(err) {
         deferred.reject(err);
     });
     
     return deferred.promise;
-    
 }
 
 //
-// Promise wrapper to generating a slug for this game's name
+// Promise wrapper to setting the game's map
 //
-function setSlug(game) {
+function setMap(req) {
     
     var deferred = Q.defer();
     
-    utils.generateSlug(game.name, Game).then(function(slug) {
+    utils.findModelBySlug(req.body.map, Map).then(function(map) {
+        if (! map) {
+            deferred.reject('Could not find map');
+            return;
+        }
         
-        game.slug = slug;
-        deferred.resolve(game);
-                                             
+        req.game.map = map;
+        deferred.resolve(req.game);
+        
     }).catch(function(err) {
         deferred.reject(err);
     });
@@ -72,16 +79,18 @@ router.route('/').
     //
     // Create new game, must be authenticated
     //
-    .post(authorizationChecks.isUserAuthenticated, function(req, res) {
-        
+    .post(authorizationChecks.isUserAuthenticated, function(req, res, next) {
+            
         var game = new Game();
         game.name = req.body.name;
-        
+        game.creator = req.user;
+        req.game = game;
+    
         //
-        // Call promise wrappers to set the creator, set the slug, and then save the game 
+        // Call promise wrappers to set the slug, the map, and then save the game 
         //
-        setCreator(req.user._id, game).then(setSlug).then(utils.saveModel).then(function() {
-            res.json({ message: 'Game created', success: true });
+        setSlug(req).then(setMap).then(utils.saveModel).then(function(game) {
+            res.json({ message: 'Game created', success: true, game: game });
         })
         .catch(function(err) {
             res.status(400).json({ message: err, success: false });
@@ -89,19 +98,21 @@ router.route('/').
         
     });
 
-router.route('/:game_id')
+router.route('/:game_slug')
 
     //
     // Delete a game, must be authorized
     //
     .delete(authorizationChecks.userCreatedGame, function(req, res) {
+    
         Game.remove({
-            _id: req.params.game_id
+            slug: req.params.game_slug
         }, function(err, game) {
-            if (err)
-                res.send(err);
+            if (err) {
+                res.status(400).json({ message: err, success: false });
+            }
             
-            res.json({ message: 'Deleted game' });
+            res.json({ message: 'Deleted game', success: true });
         });
     })
 
@@ -110,7 +121,7 @@ router.route('/:game_id')
     //
     .get(function(req, res) {
         
-        Game.findById(req.params.game_id, function(err, game) {
+        Game.findOne({slug: req.params.game_slug}, function(err, game) {
             if (err)
                 res.send(err);
             

@@ -64,11 +64,11 @@
                         }
                         
                         $http.get('/api/cos-data')
-                            .success(function(response) {
-                                coData = response;
+                            .then(function(response) {
+                                coData = response.data;
                                 resolve(response);
                             })
-                            .error(function(response) {
+                            .catch(function(response) {
                                 reject(response);
                             });
                     });
@@ -87,11 +87,11 @@
                         }
                         
                         return $http.get('/api/countries-data')
-                            .success(function(response) {
-                                countryData = response;
+                            .then(function(response) {
+                                countryData = response.data;
                                 resolve(response);
                             })
-                            .error(function(response) {
+                            .catch(function(response) {
                                 console.log('didnt get countries');
                                 reject(response);
                             });
@@ -134,11 +134,11 @@
                         }
                         
                         return $http.get('/api/terrain-data')
-                            .success(function(response) {
-                                terrainData = response;
+                            .then(function(response) {
+                                terrainData = response.data;
                                 resolve(response);
                             })
-                            .error(function(response) {
+                            .catch(function(response) {
                                 reject(response);
                             });
                     });
@@ -157,11 +157,11 @@
                         }
                         
                         return $http.get('/api/units-data')
-                            .success(function(response) {
-                                unitData = response;
+                            .then(function(response) {
+                                unitData = response.data;
                                 resolve(response);
                             })
-                            .error(function(response) {
+                            .catch(function(response) {
                                 reject(response);
                             });
                     });

@@ -1,0 +1,12 @@
+<h2>Games</h2>
+
+<div class="row" ng-repeat="game in games">
+    <div class="col-md-2">
+        <a ng-href="#/games/{{game.slug}}">{{game.name}}</a>
+    </div>
+    <div class="col-md-1">
+        <button type="button" ng-click="deleteGame(game)" class="btn btn-danger btn-xs text-danger">
+            <i class="fa fa-trash"></i>
+        </button>
+    </div>
+</div>

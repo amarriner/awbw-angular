@@ -22,10 +22,10 @@
             $scope.menus = [];
             
             $scope.closeMenu = function() {
-                console.log('test');
                 $scope.menus[0] = true;
                 $scope.menus[1] = true;
                 $scope.menus[2] = true;
+                $scope.menus[3] = true;
             };
             
             $scope.closeMenu();

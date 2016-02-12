@@ -9,10 +9,10 @@
                     
                     return $q(function(resolve, reject) {
                         $http.get('/api/maps/' + (slug || '') )
-                            .success(function(response) {
+                            .then(function(response) {
                                 resolve(response);
                             })
-                            .error(function(response) {
+                            .catch(function(response) {
                                 reject(response);
                             });
                     });

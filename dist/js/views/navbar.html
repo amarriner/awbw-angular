@@ -19,16 +19,24 @@
                         <li role="presentation" ng-click="closeMenu(1)"><a href="#/co-data">CO Data</a></li>
                     </ul>
                 </li>
-                <li role="presentation"><a href="#/maps">Maps</a></li>
+                <li class="dropdown" ng-class="{open: !menus[2]}">
+                    <a class="dropdown-toggle point" ng-click="resetMenu(2)">Games 
+                    <i class="fa" ng-class="{'fa-caret-down': menus[2], 'fa-caret-up': !menus[2]}"></i></a>
+                    <ul class="dropdown-menu" role="menu" uib-collapse="menus[2]">
+                        <li role="presentation" ng-click="closeMenu(2)"><a href="#/games/create">Create</a></li>
+                        <li role="presentation" ng-click="closeMenu(2)"><a href="#/games">List</a></li>
+                    </ul>
+                </li>
+                <li role="presentation" ng-click="closeMenu()"><a href="#/maps">Maps</a></li>
             </ul>
             
             <ul id="user-nav-ul" class="nav navbar-nav navbar-right">
-                <li class="dropdown" ng-class="{open: !menus[2]}">
-                    <a class="dropdown-toggle point" ng-click="resetMenu(2)">
+                <li class="dropdown" ng-class="{open: !menus[3]}">
+                    <a class="dropdown-toggle point" ng-click="resetMenu(3)">
                         <i class="fa fa-user"></i> 
-                        <i class="fa" ng-class="{'fa-caret-down': menus[2], 'fa-caret-up': !menus[2]}"></i>
+                        <i class="fa" ng-class="{'fa-caret-down': menus[3], 'fa-caret-up': !menus[3]}"></i>
                     </a>
-                    <ul class="dropdown-menu" role="menu" uib-collapse="menus[2]">
+                    <ul class="dropdown-menu" role="menu" uib-collapse="menus[3]">
                         <li role="presentation" class="dropdown-header" ng-show="currentUser()">{{currentUser().username}}</li>
                         <li role="presentation" ng-show="!currentUser().username">
                             <a href="#/login" ng-click="closeMenu()"><i class="fa fa-sign-in"></i> Login</a>

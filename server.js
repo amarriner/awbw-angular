@@ -34,13 +34,13 @@ var unitDataRouter      = require('./app/routes/unit-data');
 var userRouter          = require('./app/routes/user');
 
 app.use('/' + config.apiPathPrefix + '/authenticate', authenticateRouter);
-app.use(authorizeRouter);
 app.use('/' + config.apiPathPrefix + '/cos-data', coDataRouter);
 app.use('/' + config.apiPathPrefix + '/countries-data', countryDataRouter);
-app.use('/' + config.apiPathPrefix + '/games', gameRouter);
-app.use('/' + config.apiPathPrefix + '/maps', mapRouter);
 app.use('/' + config.apiPathPrefix + '/terrain-data', terrainRouter);
 app.use('/' + config.apiPathPrefix + '/units-data', unitDataRouter);
+app.use(authorizeRouter);
+app.use('/' + config.apiPathPrefix + '/games', gameRouter);
+app.use('/' + config.apiPathPrefix + '/maps', mapRouter);
 app.use('/' + config.apiPathPrefix + '/users', userRouter);
 
 app.listen(port);

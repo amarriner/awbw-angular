@@ -15,16 +15,16 @@ function isUserAuthenticated (user, callback) {
 //
 // Private function to check whether the given user created the given game
 //
-function userCreatedGame(user, gameId, callback) {
+function userCreatedGame(user, slug, callback) {
     if (! user) {
         callback('Missing user', null);
     }
     
-    if (! gameId) {
-        callback('Missing game ID', null);
+    if (! slug) {
+        callback('Missing slug', null);
     }
     
-    Game.findById(gameId).populate('creator').exec(function(err, game) {
+    Game.findOne({ slug: slug }).populate('creator').exec(function(err, game) {
         if (err) {
             callback('Error retrieving game', null);
         }    
@@ -118,7 +118,7 @@ module.exports = {
     //
     userCreatedGame: function(req, res, next) {
         
-        userCreatedGame(req.user, req.params.game_id, function(err, game) {
+        userCreatedGame(req.user, req.params.game_slug, function(err, game) {
             if (err) {
                 res.status(401).json({ message: err, success: false });
             }
