@@ -5,10 +5,10 @@
         function($http, $q) {
             
             return {
-                get: function(id) {
+                get: function(slug) {
                     
                     return $q(function(resolve, reject) {
-                        $http.get('/api/maps/' + id)
+                        $http.get('/api/maps/' + (slug || '') )
                             .success(function(response) {
                                 resolve(response);
                             })

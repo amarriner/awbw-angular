@@ -5,13 +5,17 @@
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/maps', {
+            templateUrl: 'js/views/maps.html',
+            controller: 'MapsCtrl'
+        })
+        .when('/maps/:slug', {
             templateUrl: 'js/views/map.html',
             controller: 'MapCtrl'
         });
     }])
 
-    .controller('MapCtrl', ['$scope', 'Map', 'Data',
-        function($scope, Map, Data) {
+    .controller('MapCtrl', ['$scope', '$routeParams', 'Map', 'Data', 'Utils',
+        function($scope, $routeParams, Map, Data, Utils) {
             
             Data.getAll().then(function(response) {
                 
@@ -20,20 +24,13 @@
                 $scope.countries = response.countryData;
                 $scope.terrain = response.terrainData;
                 
-                Map.get('56ba2e146d4875a31f1d66c6').then(function(response) {
+                Map.get($routeParams.slug).then(function(response) {
                     $scope.map = response; 
                 });
                 
             });
             
-            $scope.range = function(min, max, step) {
-                step = step || 1;
-                var input = [];
-                for (var i = min; i <= max; i += step) {
-                    input.push(i);
-                }
-                return input;
-            };
+            $scope.utils = Utils;
             
             $scope.getTerrainClass = function(i) {
                 return $scope.getCountry(i) + $scope.getTerrainName(i);
@@ -48,5 +45,15 @@
             };
 
         }   
+    ])
+    
+    .controller('MapsCtrl', ['$scope', 'Map',
+        function($scope, Map) {
+            
+            Map.get().then(function(response) {
+                $scope.maps = response;
+            });
+            
+        }
     ]);
 }());
