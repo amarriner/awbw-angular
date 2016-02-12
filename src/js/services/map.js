@@ -1,18 +1,21 @@
 (function() {
     'use strict';
 
-    angular.module('advanceWarsByWeb.mapService', []).factory('Map', ['$http',
-        function($http) {
+    angular.module('advanceWarsByWeb.mapService', []).factory('Map', ['$http', '$q', 
+        function($http, $q) {
             
             return {
                 get: function(id) {
-                    return $http.get('/api/maps/' + id)
-                        .success(function(response) {
-                            return response;
-                        })
-                        .error(function(response) {
-                            return response;
-                        });
+                    
+                    return $q(function(resolve, reject) {
+                        $http.get('/api/maps/' + id)
+                            .success(function(response) {
+                                resolve(response);
+                            })
+                            .error(function(response) {
+                                reject(response);
+                            });
+                    });
                 }
                 
            };

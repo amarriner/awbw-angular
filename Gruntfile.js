@@ -120,7 +120,7 @@ module.exports = function(grunt) {
                 "Gruntfile.js",
                 "server.js",
                 "app/**/*.js",
-                "src/js/*.js"
+                "src/js/**/*.js"
             ]
         },  
         
