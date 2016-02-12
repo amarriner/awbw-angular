@@ -15,8 +15,7 @@
             
             Data.getCoData().then(function(response) {
                 
-                $scope.data = response.data;
-                console.log($scope.data);
+                $scope.data = response;
                 
             }).catch(function(response) {
             });

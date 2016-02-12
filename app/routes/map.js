@@ -72,14 +72,14 @@ router.route('/')
         
     });
 
-router.route('/:map_id')
+router.route('/:map_slug')
 
     //
     // Get single map
     //
     .get(function(req, res) {
         
-        Map.findById(req.params.map_id, function(err, map) {
+        Map.findOne({ slug: req.params.map_slug}, function(err, map) {
             if (err) {
                 res.status(404).json({ message: err });
                 return;

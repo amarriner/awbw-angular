@@ -12,7 +12,8 @@
         'advanceWarsByWeb.loginService',
         'advanceWarsByWeb.map',
         'advanceWarsByWeb.mapService',
-        'advanceWarsByWeb.navbar'
+        'advanceWarsByWeb.navbar',
+        'advanceWarsByWeb.utilsService'
     ])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/', {

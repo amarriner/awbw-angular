@@ -6724,6 +6724,348 @@ button.close {
     display: none !important;
   }
 }
+.aw1-co {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+}
+.aw1-adder {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 0;
+}
+.aw1-andy {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px 0;
+}
+.aw1-colin {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px 0;
+}
+.aw1-hawke {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px 0;
+}
+.aw1-javier {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -132px 0;
+}
+.aw1-kanbei {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -165px 0;
+}
+.aw1-drake {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 -33px;
+}
+.aw1-eagle {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px -33px;
+}
+.aw1-grit {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px -33px;
+}
+.aw1-jake {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px -33px;
+}
+.aw1-jugger {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -132px -33px;
+}
+.aw1-kindle {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -165px -33px;
+}
+.aw1-flak {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 -66px;
+}
+.aw1-grimm {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px -66px;
+}
+.aw1-hachi {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px -66px;
+}
+.aw1-jess {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px -66px;
+}
+.aw1-koal {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -132px -66px;
+}
+.aw1-lash {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -165px -66px;
+}
+.aw1-max {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 -99px;
+}
+.aw1-nell {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px -99px;
+}
+.aw1-rachel {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px -99px;
+}
+.aw1-sasha {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px -99px;
+}
+.aw1-sturm {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -132px -99px;
+}
+.aw1-vonbolt {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -165px -99px;
+}
+.aw1-olaf {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 -132px;
+}
+.aw1-sami {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px -132px;
+}
+.aw1-sensei {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px -132px;
+}
+.aw1-sonja {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px -132px;
+}
+.logo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+}
+.oslogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: 0 -30px;
+}
+.bmlogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: -15px -15px;
+}
+.gelogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: -30px -15px;
+}
+.yclogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: -30px -45px;
+}
+.bhlogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: 0 -15px;
+}
 div.clear {
   clear: both;
 }
@@ -6880,6 +7222,353 @@ h4 {
 }
 .point {
   cursor: pointer;
+}
+.inline {
+  display: inline;
+}
+
+.aw1-co {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+}
+.aw1-adder {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 0;
+}
+.aw1-andy {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px 0;
+}
+.aw1-colin {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px 0;
+}
+.aw1-hawke {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px 0;
+}
+.aw1-javier {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -132px 0;
+}
+.aw1-kanbei {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -165px 0;
+}
+.aw1-drake {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 -33px;
+}
+.aw1-eagle {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px -33px;
+}
+.aw1-grit {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px -33px;
+}
+.aw1-jake {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px -33px;
+}
+.aw1-jugger {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -132px -33px;
+}
+.aw1-kindle {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -165px -33px;
+}
+.aw1-flak {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 -66px;
+}
+.aw1-grimm {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px -66px;
+}
+.aw1-hachi {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px -66px;
+}
+.aw1-jess {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px -66px;
+}
+.aw1-koal {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -132px -66px;
+}
+.aw1-lash {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -165px -66px;
+}
+.aw1-max {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 -99px;
+}
+.aw1-nell {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px -99px;
+}
+.aw1-rachel {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px -99px;
+}
+.aw1-sasha {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px -99px;
+}
+.aw1-sturm {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -132px -99px;
+}
+.aw1-vonbolt {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -165px -99px;
+}
+.aw1-olaf {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: 0 -132px;
+}
+.aw1-sami {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -33px -132px;
+}
+.aw1-sensei {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -66px -132px;
+}
+.aw1-sonja {
+  background: url('../images/aw1-co-sprites.png');
+  border: 1px solid #aaa;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  background-position: -99px -132px;
+}
+
+.logo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+}
+.oslogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: 0 -30px;
+}
+.bmlogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: -15px -15px;
+}
+.gelogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: -30px -15px;
+}
+.yclogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: -30px -45px;
+}
+.bhlogo {
+  background: url('../images/logo-sprites.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+  background-position: 0 -15px;
 }
 
 div.clear {
