@@ -1,27 +1,57 @@
 var config      = require('../config');
 var express     = require('express');
+var Q           = require('q');
 var router      = express.Router();
-var slug        = require('slug');
 
 var Game        = require('../models/game');
 var User        = require('../models/user');
 
+var utils               = require('../libs/utils');
 var authorizationChecks = require('../libs/authorization-checks');
 
-function generateSlug(name, callback) {
-    var gameSlug = slug(name);
+//
+// Promise wrapper to grabbing a user model and setting it as
+// the game's creator
+//
+function setCreator(userId, game) {
     
-    Game.count({ slug: new RegExp('^' + gameSlug + '(-([0-9])+)?$') }, function(err, c) {
-       
-        if (c === 0) {
-            return callback(null, gameSlug);
-        }
+    var deferred = Q.defer();
+    
+    utils.findModelById(userId, User).then(function(user) {
         
-        return callback(null, slug(name + '-' + c));
+        game.creator = user;
+        deferred.resolve(game);
         
+    }).catch(function(err) {
+        deferred.reject(err);
     });
+    
+    return deferred.promise;
+    
 }
 
+//
+// Promise wrapper to generating a slug for this game's name
+//
+function setSlug(game) {
+    
+    var deferred = Q.defer();
+    
+    utils.generateSlug(game.name, Game).then(function(slug) {
+        
+        game.slug = slug;
+        deferred.resolve(game);
+                                             
+    }).catch(function(err) {
+        deferred.reject(err);
+    });
+    
+    return deferred.promise;
+}
+
+//
+// GAME ROUTE
+//
 router.route('/').
 
     //
@@ -45,26 +75,16 @@ router.route('/').
     .post(authorizationChecks.isUserAuthenticated, function(req, res) {
         
         var game = new Game();
+        game.name = req.body.name;
         
-        User.findById(req.decoded._doc._id, function(err, user) {
-            if(err) {
-                res.status(404).send(err);
-            }
-            
-            game.creator = user;
-            game.name = req.body.name;
-            generateSlug(req.body.name, function(err, s) {
-                
-                game.slug = s;
-                
-                game.save(function(err) {
-                    if (err)
-                        res.send(err);
-        
-                    res.json({ message: 'Game Created' });
-                });
-        
-            });
+        //
+        // Call promise wrappers to set the creator, set the slug, and then save the game 
+        //
+        setCreator(req.user._id, game).then(setSlug).then(utils.saveModel).then(function() {
+            res.json({ message: 'Game created', success: true });
+        })
+        .catch(function(err) {
+            res.status(400).json({ message: err, success: false });
         });
         
     });
