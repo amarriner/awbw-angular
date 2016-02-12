@@ -27,6 +27,14 @@ router.route('/')
             if (user) {
               
                 //
+                // Check for missing password
+                //
+                if (! req.body.password) {
+                    res.status(401).json({ message: 'Missing password', success: false });
+                    return;
+                }
+                
+                //
                 // Compare the encrypted password in the database to
                 // the incoming one
                 //

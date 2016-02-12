@@ -10,12 +10,15 @@
         });
     }])
 
-    .controller('LoginCtrl', ['$scope', '$window', '$location', 'Login',
-        function($scope, $window, $location, Login) {
+    .controller('LoginCtrl', ['$scope', '$window', '$location', 'Login', 'SweetAlert',
+        function($scope, $window, $location, Login, SweetAlert) {
         
             var token;
         
+            $scope.buttonDisabled = false;
+            
             $scope.login = function() {
+                $scope.buttonDisabled = true;
                 $scope.error = "";
             
                 Login.authenticate({
@@ -26,11 +29,17 @@
                     Login.setCurrentUser(response.data.user);
                     
                     $window.sessionStorage.token = response.data.token;    
-                    $location.path($window.sessionStorage.previousLocation);
+                    
+                    if ($window.sessionStorage.previousLocation) {
+                        $location.path($window.sessionStorage.previousLocation);
+                    }
+                    else {
+                        $location.path('/');
+                    }
  
                 }).catch(function(response) {
                 
-                    $scope.error = response.data.error;
+                    SweetAlert.swal({title: 'Error', text: response.data.message}, function() { $scope.buttonDisabled = false; });
                 
                 });
             };
