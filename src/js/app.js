@@ -4,6 +4,7 @@
     var module = angular.module('advanceWarsByWeb', [
         'ngResource',
         'ngRoute',
+        'oitozero.ngSweetAlert',
         'ui.bootstrap',
         'ui.bootstrap.popover',
         'advanceWarsByWeb.coData',

@@ -30,7 +30,6 @@
 
                     if (user) {
                         return $q(function(resolve, reject) {
-                            console.log('Setting user');
                             currentUser = user;
                         });   
                     }

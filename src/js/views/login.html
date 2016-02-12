@@ -15,7 +15,9 @@
     
             <div class="row">
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Login</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="buttonDisabled">
+                        <i class="fa" ng-class="{'fa-sign-in': !buttonDisabled, 'fa-cog': buttonDisabled, 'fa-spin': buttonDisabled}"></i> 
+                        Login</button>
                 </div>
         
                 <div class="col-md-10">

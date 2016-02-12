@@ -15,18 +15,20 @@
             
             $scope.currentUser = Login.getCurrentUser;
             
-            $scope.isUserCollapsed = true;
-            $scope.isMenuCollapsed = true;
-            
             $scope.$on('$routeChangeSuccess', function() {
                 $scope.location = $location.path();
             });
             
             $scope.menus = [];
-            $scope.menus[0] = true;
-            $scope.menus[1] = true;
-            $scope.menus[2] = true;
             
+            $scope.closeMenu = function() {
+                console.log('test');
+                $scope.menus[0] = true;
+                $scope.menus[1] = true;
+                $scope.menus[2] = true;
+            };
+            
+            $scope.closeMenu();
             
             $scope.resetMenu = function(open) {
                 for (var i = 1; i < $scope.menus.length; i++) {
@@ -40,6 +42,7 @@
             };
                       
             $scope.logout = function() {
+                $scope.closeMenu();
                 Login.clearCurrentUser();
                 $window.sessionStorage.token = "";
                 $location.path("/");
