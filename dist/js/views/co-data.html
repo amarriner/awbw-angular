@@ -1,0 +1,14 @@
+<h2>CO Data</h2>
+
+<div class="row" ng-repeat="r in data | orderBy: 'country'">
+    <div class="col-md-2">
+        <img ng-src="images/aw1/{{r.name.toLowerCase().replace(' ','')}}.png" alt="{{r.name}} Image"> {{r.name}}
+    </div>
+    
+    <div class="col-md-2"><img ng-src="images/aw1/{{r.country}}logo.gif" alt="{{r.country}} Logo"></div>
+    
+    <div class="col-md-4">
+        <div>{{r.powerName}}</div>
+        <div>{{r.spowerName}}</div>
+    </div>
+</div>
