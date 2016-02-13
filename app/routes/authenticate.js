@@ -1,12 +1,14 @@
 var bcrypt      = require('bcrypt-nodejs');
 var jwt         = require('jsonwebtoken');
 var express     = require('express');
-var router      = express.Router();
+var authRouter = express.Router();
+var checkRouter = express.Router();
 
-var config      = require('../config');
-var User        = require('../models/user');
+var config              = require('../config');
+var authorizationChecks = require('../libs/authorization-checks');
+var User                = require('../models/user');
 
-router.route('/')
+authRouter.route('/')
 
     //
     // Only allow authentication by POST method
@@ -65,4 +67,16 @@ router.route('/')
         
     });
 
-module.exports = router;
+checkRouter.route('/')
+    
+    .post(authorizationChecks.isUserAuthenticated, function(req, res) {
+
+        var token = req.body.token || req.query.token || req.headers['x-access-token'];
+        res.json({ success: true, message: 'Token authenticated successfully', token: token, user: req.user });
+        
+    });
+
+module.exports = {
+    authRouter: authRouter,
+    checkRouter: checkRouter
+};

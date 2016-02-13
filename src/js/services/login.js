@@ -25,7 +25,6 @@
                 },
             
                 getCurrentUser: function() {
-                    console.log('getting user ' + JSON.stringify(currentUser));
                     return currentUser;
                 },
                     
@@ -38,9 +37,9 @@
                         });   
                     }
                     
-                    return $http.get('/api/authenticate')
+                    return $http.post('/api/authenticate/check')
                         .then(function(response) {
-                            currentUser = response.user;
+                            currentUser = response.data.user;
                             return response;
                         });
                 }

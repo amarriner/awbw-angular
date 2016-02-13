@@ -23,7 +23,7 @@ app.use(express.static((environment == 'production' ? 'dist' : 'src')));
 
 app.use('/', router);
 
-var authenticateRouter  = require('./app/routes/authenticate');
+var authentication      = require('./app/routes/authenticate');
 var authorizeRouter     = require('./app/routes/authorize');
 var coDataRouter        = require('./app/routes/co-data');
 var countryDataRouter   = require('./app/routes/country-data');
@@ -33,12 +33,13 @@ var terrainRouter       = require('./app/routes/terrain-data');
 var unitDataRouter      = require('./app/routes/unit-data');
 var userRouter          = require('./app/routes/user');
 
-app.use('/' + config.apiPathPrefix + '/authenticate', authenticateRouter);
+app.use('/' + config.apiPathPrefix + '/authenticate', authentication.authRouter);
 app.use('/' + config.apiPathPrefix + '/cos-data', coDataRouter);
 app.use('/' + config.apiPathPrefix + '/countries-data', countryDataRouter);
 app.use('/' + config.apiPathPrefix + '/terrain-data', terrainRouter);
 app.use('/' + config.apiPathPrefix + '/units-data', unitDataRouter);
 app.use(authorizeRouter);
+app.use('/' + config.apiPathPrefix + '/authenticate/check', authentication.checkRouter);
 app.use('/' + config.apiPathPrefix + '/games', gameRouter);
 app.use('/' + config.apiPathPrefix + '/maps', mapRouter);
 app.use('/' + config.apiPathPrefix + '/users', userRouter);

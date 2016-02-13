@@ -26,7 +26,6 @@
                     password: $scope.password
                 }).then(function(response) {
                 
-                    alert(JSON.stringify(response));
                     Login.setCurrentUser(response.data.user);
                     
                     $window.sessionStorage.token = response.data.token;    
