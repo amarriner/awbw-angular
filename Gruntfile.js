@@ -119,6 +119,7 @@ module.exports = function(grunt) {
         jshint: {
             app: [
                 "Gruntfile.js",
+                "bootstrap.js",
                 "server.js",
                 "app/**/*.js",
                 "src/js/**/*.js"
