@@ -1,3 +1,4 @@
+var bcrypt      = require('bcrypt');
 var config      = require('./app/config');
 
 var mongoose    = require('mongoose');
@@ -5,20 +6,35 @@ mongoose.connect(config.database);
 
 var terrainData = require('./app/data/terrain-data.json');
 var Map         = require('./app/models/map');
+var User        = require('./app/models/user');
 
-var tiles = [ {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0},
- {terrain: 0}, {terrain: 2}, {terrain: 0}, {terrain: 10, country: 'bm'}, {terrain: 0},
- {terrain: 13, country: 'os'}, {terrain: 4}, {terrain: 4}, {terrain: 4}, {terrain: 13, country: 'bm'},
- {terrain: 0}, {terrain: 10, country: 'os'}, {terrain: 0}, {terrain: 2}, {terrain: 0},
- {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}];
+function createUser() {
+    var user = new User();
+    user.username = 'amarriner';    
+    var salt = bcrypt.genSaltSync(10);
+    user.password = bcrypt.hashSync('test', salt);
+    user.save(function(err) {
+        if (err) {
+            console.log(err);
+            return;
+        } 
+        
+        console.log('User created');
+    });
+}
 
-Map.findById('56ba2e146d4875a31f1d66c6', function(err, map) {
-    if (err) {
-        console.log(err);
-        return;
-    }
-    
-    console.log('Map found');
+function createMap() {
+    var tiles = [ 
+        {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0},
+        {terrain: 0}, {terrain: 2}, {terrain: 0}, {terrain: 10, country: 'bm'}, {terrain: 0},
+        {terrain: 13, country: 'os'}, {terrain: 4}, {terrain: 4}, {terrain: 4}, {terrain: 13, country: 'bm'},
+        {terrain: 0}, {terrain: 10, country: 'os'}, {terrain: 0}, {terrain: 2}, {terrain: 0},
+        {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}
+    ];
+
+    map = new Map();
+    map.name = 'amarriner Demo';
+    map.slug = 'amarriner-demo';
     map.width = 5;
     map.tiles = tiles;
     
@@ -27,7 +43,10 @@ Map.findById('56ba2e146d4875a31f1d66c6', function(err, map) {
             console.log(err);
             return;
         }
-        
+    
         console.log('Map saved');
-    })
-});
+    });
+}
+
+User.remove({ username: 'amarriner' }, function(err, user) {});
+Map.remove({ name: 'amarriner Demo' }, function(err, map) {});
