@@ -188,8 +188,8 @@ module.exports = function(grunt) {
                         'src/bower_components/angular-resource/angular-resource.js',
                         'src/bower_components/angular-route/angular-route.js',
                         'src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-                        'bower_components/sweetalert/dist/sweetalert-dev.js',
-                        'bower_components/ngSweetAlert/SweetAlert.js'
+                        'src/bower_components/sweetalert/dist/sweetalert-dev.js',
+                        'src/bower_components/ngSweetAlert/SweetAlert.js'
                     ]
                 }
             },
