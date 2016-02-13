@@ -1,5 +1,5 @@
 var config      = require('../config');
-var bcrypt      = require('bcrypt');
+var bcrypt      = require('bcrypt-nodejs');
 var express     = require('express');
 var router      = express.Router();
 

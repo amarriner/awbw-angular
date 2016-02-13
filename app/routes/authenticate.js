@@ -1,4 +1,4 @@
-var bcrypt      = require('bcrypt');
+var bcrypt      = require('bcrypt-nodejs');
 var jwt         = require('jsonwebtoken');
 var express     = require('express');
 var router      = express.Router();
@@ -25,7 +25,7 @@ router.route('/')
             // If we found the user...
             //
             if (user) {
-              
+                  
                 //
                 // Check for missing password
                 //

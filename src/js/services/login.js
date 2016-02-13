@@ -8,14 +8,16 @@
             
             return {
                 authenticate: function(credentials) {
-                    return $http.post('/api/authenticate', credentials)
-                        .then(function(response) {
-                            return response;
-                        })
-                        .catch(function(response) {
-                            $window.sessionStorage.token = "";
-                            return response;
+                    return $q(function(resolve, reject) {
+                        $http.post('/api/authenticate', credentials)
+                            .then(function(response) {
+                                resolve(response);
+                            })
+                            .catch(function(response) {
+                                $window.sessionStorage.token = "";
+                                reject(response);
                         });
+                    });
                 },
                 
                 clearCurrentUser: function() {

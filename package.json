@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/amarriner/awbw-angular#readme",
   "devDependencies": {
-    "bcrypt": "^0.8.5",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.2",
     "colors": "^1.1.2",
     "express": "^4.13.4",
