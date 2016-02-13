@@ -1,4 +1,4 @@
-var bcrypt      = require('bcrypt');
+var bcrypt      = require('bcrypt-nodejs');
 var config      = require('./app/config');
 
 var mongoose    = require('mongoose');
@@ -48,5 +48,5 @@ function createMap() {
     });
 }
 
-User.remove({ username: 'amarriner' }, function(err, user) {});
-Map.remove({ name: 'amarriner Demo' }, function(err, map) {});
+User.remove({ username: 'amarriner' }, function(err, user) { createUser(); });
+Map.remove({ name: 'amarriner Demo' }, function(err, map) { createMap(); });

@@ -29,6 +29,9 @@
             };
             
             $scope.closeMenu();
+            if ($window.sessionStorage.token) {
+                Login.setCurrentUser();    
+            }
             
             $scope.resetMenu = function(open) {
                 for (var i = 1; i < $scope.menus.length; i++) {
