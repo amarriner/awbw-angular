@@ -50,7 +50,6 @@
                 SweetAlert.swal({
                     title: 'Delete ' + game.name,
                     text: 'Are you sure you want to delete this game?',
-                    type: 'warning',
                     showCancelButton: true
                 }, function(isConfirm) {
                     if (isConfirm) {
@@ -68,8 +67,8 @@
         }
     ])
     
-    .controller('GameCreateCtrl', ['$scope', '$location', 'Game', 'Map', 'SweetAlert',
-        function($scope, $location, Game, Map, SweetAlert) {
+    .controller('GameCreateCtrl', ['$scope', '$location', 'Data', 'Game', 'Map', 'SweetAlert',
+        function($scope, $location, Data, Game, Map, SweetAlert) {
             
             $scope.game = {};
             
@@ -78,6 +77,24 @@
             Map.get().then(function(response) {
                 $scope.maps = response.data;
             });
+            
+            Data.getCountryData().then(function(response) {
+                $scope.countryData = response.data;
+            });
+            
+            $scope.changeMap = function() {
+                $scope.mapCountries = [];
+                angular.forEach($scope.game.map.tiles, function(t, ndx) {
+                    var country = $scope.countryData.filter(function(c) {
+                        return c.abbreviation === t.country;
+                    })[0];
+                        
+                    if (t.country && $scope.mapCountries.indexOf(country) === -1) {
+                        $scope.mapCountries.push(country);
+                    }    
+                });
+                
+            };
             
             $scope.createGame = function() {
                 

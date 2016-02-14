@@ -10,8 +10,14 @@
         
         <div class="form-group">
             <label for="game-map">Map</label> <i class="fa fa-asterisk text-danger"></i>
-            <select id="game-map" name="game-map" class="form-control" ng-model="game.map"> 
-                <option ng-repeat="map in maps" ng-value="map.slug">{{map.name}}</option>
+            <select id="game-map" name="game-map" class="form-control" ng-model="game.map" ng-change="changeMap()" ng-options="map as map.name for map in maps">
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="game-country">Country</label> <i class="fa fa-asterisk text-danger"></i>
+            <select id="game-country" name="game-coumtry" class="form-control" ng-model="game.country">
+                <option ng-repeat="country in mapCountries" ng-value="country.abbreviation">{{country.name}}</option>
             </select>
         </div>
         
