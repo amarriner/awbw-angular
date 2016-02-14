@@ -46,7 +46,7 @@ authRouter.route('/')
                     // Generate a JWT
                     //
                     var token = jwt.sign(user, config.secret, {
-                        expiresIn: 60 * 60 * 24 * 7
+                        expiresIn: config.tokenExpirationTime
                     });
                     
                     //

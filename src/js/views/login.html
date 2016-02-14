@@ -14,19 +14,20 @@
             <br/>
     
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <button type="submit" class="btn btn-primary" ng-disabled="buttonDisabled">
                         <i class="fa" ng-class="{'fa-sign-in': !buttonDisabled, 'fa-cog': buttonDisabled, 'fa-spin': buttonDisabled}"></i> 
                         Login</button>
+                    
+                    <a class="btn btn-default" href="#/register">
+                        <i class="fa fa-user-plus"></i> Register
+                    </a>
                 </div>
         
-                <div class="col-md-10">
-                    <span class="bg-danger text-danger rounded" ng-show="error">
-                        <i class="fa fa-exclamation-triangle"></i> {{error}}
-                    </span>
-                </div>
             </div>
 
         </form>
+        
     </div>
+
 </div>

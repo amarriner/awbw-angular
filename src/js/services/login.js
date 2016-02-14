@@ -20,6 +20,19 @@
                     });
                 },
                 
+                register: function(params) {
+                    return $q(function(resolve, reject) {
+                        $http.post('/api/users', params)
+                            .then(function(response) {
+                                resolve(response);
+                            })
+                            .catch(function(response) {
+                                $window.sessionStorage.token = "";
+                                reject(response);
+                            });
+                    });  
+                },
+                
                 clearCurrentUser: function() {
                     currentUser = {};
                 },

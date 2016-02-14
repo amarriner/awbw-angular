@@ -20,4 +20,9 @@ module.exports = {
     //
     database: 'mongodb://localhost:27017/awbw',
     
+    //
+    // Token expiration time
+    //
+    tokenExpirationTime: 60 * 60 * 24 * 7
+    
 };
