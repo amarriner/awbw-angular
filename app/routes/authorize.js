@@ -48,6 +48,10 @@ router.use(function(req, res, next) {
                         next();
                     }
                 
+                    if (! user) {
+                        req.message = 'No such user ' + decoded._doc.username;
+                        next();
+                    }
                     //
                     // Add the user and the decoded token to the request object
                     //

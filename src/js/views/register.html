@@ -1,33 +1,33 @@
-<div id="login-form" class="panel panel-primary">
+<div id="register-form" class="panel panel-primary">
     <div class="panel-heading">
-        <h4>Login</h4>
+        <h4>Register</h4>
     </div>
 
     <div class="panel-body">
-        <form ng-submit="login()">
+        <form ng-submit="register()">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" ng-model="username" class="form-control" set-focus="true">
     
             <label for="password">Password</label>
             <input type="password" id="password" name="password" ng-model="password" class="form-control">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" ng-model="email" class="form-control">
     
             <br/>
     
             <div class="row">
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-primary" ng-disabled="buttonDisabled">
-                        <i class="fa" ng-class="{'fa-sign-in': !buttonDisabled, 'fa-cog': buttonDisabled, 'fa-spin': buttonDisabled}"></i> 
-                        Login</button>
-                    
-                    <a class="btn btn-default" href="#/register">
-                        <i class="fa fa-user-plus"></i> Register
+                        <i class="fa" ng-class="{'fa-user-plus': !buttonDisabled, 'fa-cog': buttonDisabled, 'fa-spin': buttonDisabled}"></i> 
+                        Register</button>
+                
+                    <a class="btn btn-default" href="#/login">
+                        <i class="fa fa-sign-in"></i> Login
                     </a>
-                </div>
-        
+                </div>                    
             </div>
 
         </form>
-        
     </div>
-
 </div>

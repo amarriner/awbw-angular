@@ -1,10 +1,10 @@
 var config      = require('../config');
 var bcrypt      = require('bcrypt-nodejs');
 var express     = require('express');
+var jwt         = require('jsonwebtoken');
 var router      = express.Router();
 
 var User        = require('../models/user');
-
 var authorizationChecks = require('../libs/authorization-checks');
 
 router.route('/')
@@ -28,28 +28,51 @@ router.route('/')
     // Create new user
     //
     .post(function(req, res) {
-        
+    
+        if (! req.body.username) {
+            res.status(400).json({ message: 'Missing username', success: false });
+            return;
+        }
+    
+        if (! req.body.password) {
+            res.status(400).json({ message: 'Missing password', success: false });
+            return;
+        }
+    
         var user = new User();
         user.username = req.body.username;
+        
+        if (req.body.email) {
+            user.email = req.body.email;
+        }
         
         var salt = bcrypt.genSaltSync(10);
         user.password = bcrypt.hashSync(req.body.password, salt);
         
         User.findOne({ username: req.body.username }, function(err, result) {
             if (err) {
-                res.status(404).send(err);
+                res.status(400).json(err);
             }
             
             if (result) {
-                res.json({ error: 'There is already a user named ' + req.body.username });
+                res.status(400).json({ message: 'There is already a user named ' + req.body.username, success: false });
             }
             
             else {
                 user.save(function(err) {
-                    if (err)
-                        res.send(err);
+                    if (err) {
+                        res.status(400).json(err);
+                        return;
+                    }
         
-                    res.json({ message: 'User Created' });
+                    res.json({
+                        message: 'User Created', 
+                        success: true, 
+                        user: user, 
+                        token: jwt.sign(user, config.secret, {
+                            expiresIn: config.tokenExpirationTime
+                        })
+                    });
                 });
             }
         });

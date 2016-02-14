@@ -16,6 +16,7 @@
         'advanceWarsByWeb.map',
         'advanceWarsByWeb.mapService',
         'advanceWarsByWeb.navbar',
+        'advanceWarsByWeb.register',
         'advanceWarsByWeb.utilsService'
     ])
     .config(['$routeProvider', function($routeProvider) {
@@ -68,7 +69,7 @@
             
                 responseError: function(rejection) {
 
-                    if ($location.path() !== "/login") {
+                    if ($location.path() !== '/login') {
                         $window.sessionStorage.previousLocation = $location.path();
                 
                         // if (rejection.status === 401) {
