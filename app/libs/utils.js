@@ -79,9 +79,12 @@ module.exports = {
         
         model.save(function(err) {
             if (err) {
+                console.log('Error saving model');
                 deferred.reject(err);
                 return;
             }
+            
+            console.log('saved model');
 
             deferred.resolve(model);
         });

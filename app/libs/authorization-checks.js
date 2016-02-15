@@ -1,131 +1,63 @@
 var Game        = require('../models/game');
 var User        = require('../models/user');
 
-//
-// Private function to check the authenticated property of the given user
-//
-function isUserAuthenticated (user, callback) {
-    if (! user) {
-        callback('Missing user', false);
-    }
-    
-    callback(null, user.authenticated || false);
-}
-
-//
-// Private function to check whether the given user created the given game
-//
-function userCreatedGame(user, slug, callback) {
-    if (! user) {
-        callback('Missing user', null);
-    }
-    
-    if (! slug) {
-        callback('Missing slug', null);
-    }
-    
-    Game.findOne({ slug: slug }).populate('creator').exec(function(err, game) {
-        if (err) {
-            callback('Error retrieving game', null);
-        }    
-        
-        if (game.creator._id.equals(user._id)) {
-            callback(null, game);
-        }
-        
-        else {
-            callback('Authenticated user did not create this game', null);
-        }
-    });
-}
-
-//
-// Private function to check whether the given user created the given map
-//
-function userCreatedMap(user, mapId, callback) {
-    if (! user) {
-        callback('Missing user', null);
-    }
-    
-    if (! mapId) {
-        callback('Missing map ID', null);
-    }
-    
-    Map.findById(mapId).populate('creator').exec(function(err, map) {
-        if (err) {
-            callback('Error retrieving map', null);
-        }
-        
-        if (map.creator._id.equals(user._id)) {
-            callback(null, map);
-        }
-        
-        else {
-            callback('Authenticated user did not create this map', null);
-        }
-    });
-}
-
-//
-// Private function to check whether the given user is the game as the authenticated user
-// to make sure a user can only update themselves
-//
-function userIsAuthenticatedUser(user, userId, callback) {
-    if (! user) {
-        callback('Missing user');
-    }
-    
-    if (! userId) {
-        callback('Missing user ID');
-    }
-    
-    if (user._id.equals(userId)) {
-        callback(null);
-    }
-    
-    else {
-        callback('Authenticated user is not this user', null);
-    }
-}
-
 module.exports = {
     
     //
     // Checks to see whether a user is authenticated or not.
-    // Wrapper to private isUserAuthenticated function
     //
     isUserAuthenticated: function(req, res, next) {
         
-        isUserAuthenticated(req.user, function(err, allow) {
-            if (err) {
-                res.status(500).json({ message: 'Error authenticating user', success: false });
-            }
-            
-            if (allow) {
-                next();
-            }
-            
-            else {
-                res.status(401).json({ message: 'Not authenticated', success: false });
-            }
-        });
+        if (! req.user) {
+            res.status(400).json({ message: 'Missing user', success: false });
+        }
         
+        if (req.user.authenticated) {
+            next();
+        }
+        
+        else {
+            res.status(401).json({ message: 'Not authenticated', success: false });
+        }
     },
     
     //
     // Check to make sure the user who is updating the game is the creator of that game.
-    // Wrapper to private userCreatedGame function
     //
+    
     userCreatedGame: function(req, res, next) {
-        
-        userCreatedGame(req.user, req.params.game_slug, function(err, game) {
+
+        if (! req.user) {
+            res.status(400).json({ message: 'Missing user', success: false });
+            return;
+        }
+    
+        if (! req.params.gameSlug) {
+            res.status(400).json({ message: 'Missing game slug', success: false });
+            return;
+        }
+    
+        Game.findOne({ slug: req.params.gameSlug }).populate('creator').exec(function(err, game) {
             if (err) {
-                res.status(401).json({ message: err, success: false });
+                res.status(500).json({ message: 'Error retrieving game', success: false });
+                return;
             }
             
-            else {
+            if (!game) {
+                res.status(404).json({ message: 'Game not found', success: false });
+                return;
+            }
+        
+            if (game.creator._id.equals(req.user._id)) {
                 req.game = game;
                 next();
+            }
+        
+            else {
+                res.status(401).json({ 
+                    message: 'Authenticated user did not create this game',
+                    success: false 
+                });
             }
         });
         
@@ -133,18 +65,40 @@ module.exports = {
     
     //
     // Check to make sure the user who is updating the map is the creator of that map.
-    // Wrapper to private userCreatedMap function
     //
     userCreatedMap: function(req, res, next) {
         
-        userCreatedMap(req.user, req.params.map_id, function(err, map) {
+        if (! req.user) {
+            res.status(400).json({ message: 'Missing user', success: false });
+            return;
+        }
+    
+        if (! mapSlug) {
+            res.status(400).json({ message: 'Missing map slug', success: false });
+            return;
+        }
+    
+        Map.findOne({ slug: req.body.mapSlug }).populate('creator').exec(function(err, map) {
             if (err) {
-                res.status(401).json({ message: err, success: false });
+                res.status(500).json({ message: 'Error retrieving map', success: false });
+                return;
             }
             
-            else {
+            if (!map) {
+                res.status(404).json({ message: 'Map not found', success: false });
+                return;
+            }
+        
+            if (map.creator._id.equals(req.user._id)) {
                 req.map = map;
                 next();
+            }
+        
+            else {
+                res.status(401).json({ 
+                    message: 'Authenticated user did not create this map',
+                    success: false 
+                });
             }
         });
         
@@ -152,20 +106,27 @@ module.exports = {
     
     //
     // Check to make sure the user is updating only themselves.
-    // Wrapper to private userIsAuthenticatedUser
     //
     userIsAuthenticatedUser: function(req, res, next) {
-        
-        userIsAuthenticatedUser(req.user, req.params.user_id, function(err) {
-            if (err) {
-                res.status(401).json({ message: err, success: false });
-            }
-            
-            else {
-                next();
-            }
-        }); 
-        
+ 
+        if (! req.user) {
+            res.status(400).json({ message: 'Missing user', success: false} );
+            return;
+        }
+    
+        if (! userId) {
+            res.status(400).json({ message: 'Missing user ID', success: false} );
+            return;
+        }
+    
+        if (req.user._id.equals(userId)) {
+            next();
+        }
+    
+        else {
+            res.status(400).json({ message: 'Authenticated user is not this user', success: false} );
+        }
+                
     }
     
 };

@@ -72,14 +72,14 @@ router.route('/')
         
     });
 
-router.route('/:map_slug')
+router.route('/:mapSlug')
 
     //
     // Get single map
     //
     .get(function(req, res) {
         
-        Map.findOne({ slug: req.params.map_slug}, function(err, map) {
+        Map.findOne({ slug: req.params.mapSlug}, function(err, map) {
             if (err) {
                 res.status(404).json({ message: err });
                 return;
@@ -95,28 +95,36 @@ router.route('/:map_slug')
     //
     .put(authorizationChecks.userCreatedMap, function(req, res) {
         
-        Map.findById(req.params.map_id, function(err, map) {
+        req.map.name = req.body.name;
+        req.map.width = req.body.width;
             
+        req.map.save(function(err) {
             if (err) {
-                res.status(404).json({ message: err });
+                res.status(500).json({ message: err });
                 return;
             }
-            
-            map.name = req.body.name;
-            map.width = req.body.width;
-            
-            user.save(function(err) {
-                if (err) {
-                    res.status(500).json({ message: err });
-                    return;
-                }
                 
-                res.json({ message: 'Map updated!' });
-            });
+            res.json({ message: 'Map updated!' });
+        });
+        
+    })
+
+    //
+    // Delete a map
+    //
+    .delete(authorizationChecks.userCreatedMap, function(req, res) {
             
+        req.map.remove(function(err) {
+            if (err) {
+                res.status(500).json({ message: err });
+                return;
+            }
+                
+            res.json({ message: 'Map deleted!' });
         });
         
     });
+
         
 
 module.exports = router;
