@@ -11,8 +11,7 @@ module.exports = {
         var deferred = Q.defer();
         Model.findById(id, function(err, model) {
             if(err) {
-                deferred.reject(err);
-                return;
+                return deferred.reject(err);
             }
             
             deferred.resolve(model);
@@ -30,8 +29,7 @@ module.exports = {
         var deferred = Q.defer();
         Model.findOne({slug: slug}, function(err, model) {
             if (err) {
-                deferred.reject(err);
-                return;
+                return deferred.reject(err);
             }
             
             deferred.resolve(model);
@@ -54,13 +52,11 @@ module.exports = {
     
         Model.count({ slug: new RegExp('^' + newSlug + '(-([0-9])+)?$') }, function(err, c) {
             if (err) {
-                deferred.reject(err);
-                return;
+                return deferred.reject(err);
             }
        
             if (c === 0) {
-                deferred.resolve(newSlug);
-                return;
+                return deferred.resolve(newSlug);
             }
         
             deferred.resolve(slug(s + '-' + c));
@@ -79,12 +75,8 @@ module.exports = {
         
         model.save(function(err) {
             if (err) {
-                console.log('Error saving model');
-                deferred.reject(err);
-                return;
+                return deferred.reject(err);
             }
-            
-            console.log('saved model');
 
             deferred.resolve(model);
         });

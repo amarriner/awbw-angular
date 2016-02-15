@@ -7080,7 +7080,27 @@ div.aw1-map-sprite {
   position: relative;
   width: 16px;
 }
-div.aw1-map-sprite a {
+div.aw1-map-sprite a,
+div.unit a {
+  bottom: 0;
+  display: block;
+  height: 16px;
+  left: 0;
+  position: absolute;
+  width: 16px;
+}
+div.movementSquare {
+  background-color: red;
+  opacity: .65;
+  bottom: 1px;
+  display: block;
+  height: 14px;
+  left: 1px;
+  position: absolute;
+  width: 14px;
+}
+div.unit {
+  background: url('../images/aw1-sprites.png') no-repeat;
   bottom: 0;
   display: block;
   height: 16px;
@@ -7099,6 +7119,11 @@ div.aw1-road {
 }
 div.aw1-wood {
   background-position: -210px -21px;
+}
+div.aw1-mountain {
+  background-position: 0 -101px;
+  height: 21px;
+  margin-top: -5px;
 }
 div.aw1-osbase {
   background-position: -42px -30px;
@@ -7587,7 +7612,27 @@ div.aw1-map-sprite {
   position: relative;
   width: 16px;
 }
-div.aw1-map-sprite a {
+div.aw1-map-sprite a,
+div.unit a {
+  bottom: 0;
+  display: block;
+  height: 16px;
+  left: 0;
+  position: absolute;
+  width: 16px;
+}
+div.movementSquare {
+  background-color: red;
+  opacity: .65;
+  bottom: 1px;
+  display: block;
+  height: 14px;
+  left: 1px;
+  position: absolute;
+  width: 14px;
+}
+div.unit {
+  background: url('../images/aw1-sprites.png') no-repeat;
   bottom: 0;
   display: block;
   height: 16px;
@@ -7606,6 +7651,11 @@ div.aw1-road {
 }
 div.aw1-wood {
   background-position: -210px -21px;
+}
+div.aw1-mountain {
+  background-position: 0 -101px;
+  height: 21px;
+  margin-top: -5px;
 }
 div.aw1-osbase {
   background-position: -42px -30px;

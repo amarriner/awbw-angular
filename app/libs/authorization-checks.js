@@ -1,8 +1,7 @@
 var Game        = require('../models/game');
 var User        = require('../models/user');
 
-module.exports = {
-    
+var functions = {
     //
     // Checks to see whether a user is authenticated or not.
     //
@@ -22,30 +21,66 @@ module.exports = {
     },
     
     //
+    // Check to make sure the user is the active player for the given game
+    //
+    isActivePlayer: function(req, res, next) {
+        if (! req.user) {
+            return res.status(400).json({ message: 'Missing user', success: false });
+        } 
+        
+        if (! req.params.gameSlug) {
+            return res.status(400).json({ message: 'Missing game slug', success: false });    
+        }
+        
+        Game.findOne({ slug: req.params.gameSlug }).populate('creator players.user').exec(function(err, game) {
+            if (err) {
+                return res.status(500).json({ message: 'Error retrieving game', success: false });
+            }
+            
+            if (!game) {
+                return res.status(404).json({ message: 'Game not found', success: false });
+            }
+            
+            var activePlayer = game.players.filter(function(p) { return p.active; });
+            if (activePlayer.length === 1) {
+                activePlayer = activePlayer[0];
+                
+                if (activePlayer.user._id.equals(req.user._id)) {
+                    req.game = game;
+                    next();
+                }
+                else {
+                    return res.status(400).json({ message: 'Authenticated user not the active player in this game', success: false });    
+                }
+            }
+            
+            else {
+                return res.status(400).json({ message: 'Cannot determine active player', success: false });
+            }
+            
+        });
+    },
+    
+    //
     // Check to make sure the user who is updating the game is the creator of that game.
     //
-    
     userCreatedGame: function(req, res, next) {
 
         if (! req.user) {
-            res.status(400).json({ message: 'Missing user', success: false });
-            return;
+            return res.status(400).json({ message: 'Missing user', success: false });
         }
     
         if (! req.params.gameSlug) {
-            res.status(400).json({ message: 'Missing game slug', success: false });
-            return;
+            return res.status(400).json({ message: 'Missing game slug', success: false });
         }
     
         Game.findOne({ slug: req.params.gameSlug }).populate('creator').exec(function(err, game) {
             if (err) {
-                res.status(500).json({ message: 'Error retrieving game', success: false });
-                return;
+                return res.status(500).json({ message: 'Error retrieving game', success: false });
             }
             
             if (!game) {
-                res.status(404).json({ message: 'Game not found', success: false });
-                return;
+                return res.status(404).json({ message: 'Game not found', success: false });
             }
         
             if (game.creator._id.equals(req.user._id)) {
@@ -128,5 +163,6 @@ module.exports = {
         }
                 
     }
-    
 };
+
+module.exports = functions;

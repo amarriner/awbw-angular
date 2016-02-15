@@ -1,3 +1,11 @@
 <div class="aw1-map-sprite aw1-{{getTerrainClass(i)}}" ng-class="{clear: i % map.width == 0}">
-    <a ng-show="getTerrainClass(i).endsWith('base')" uib-popover-template="'js/views/base-menu.html'" popover-placement="bottom-left" popover-title="Build Units" popover-trigger="outsideClick"></a>
+    <div ng-show="game && ! map.tiles[i].unit">
+        <a ng-show="getTerrainClass(i).endsWith('base') && getCountry(i) == activePlayer.country" uib-popover-template="'js/views/base-menu.html'" popover-placement="bottom-left" popover-title="Build Units" popover-trigger="outsideClick"></a>
+    </div>
+    <div ng-show="map.tiles[i].unit" class="unit aw1-{{getUnitClass(i)}}">
+        <div ng-show="map.tiles[i].unit.country == activePlayer.country">
+            <a uib-popover-template="'js/views/unit-menu.html'" popover-placement="bottom-left" popover-title="{{getUnitName(i)}}" popover-trigger="outsideClick"></a>
+        </div>
+    </div>
+    <div ng-show="map.tiles[i].cost && map.tiles[i].cost < 1000" class="movementSquare" ng-click="moveUnit(i)"></div>
 </div>

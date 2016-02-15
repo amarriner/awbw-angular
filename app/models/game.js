@@ -24,7 +24,11 @@ var GameSchema      = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Map'
     },
-    players: [PlayerSchema]
+    players: [PlayerSchema],
+    startDate: Date,
+    activityDate: Date,
+    endDate: Date,
+    units: [Schema.Types.Mixed]
 });
 
 module.exports = mongoose.model('Game', GameSchema);

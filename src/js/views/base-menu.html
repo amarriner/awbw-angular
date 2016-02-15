@@ -1,4 +1,4 @@
-<div ng-repeat="u in menuData['base']" class="row">
+<div ng-repeat="u in menuData['base']" class="row" ng-click="buildUnit(i, units[u])">
     <div class="col-md-1">
         <div class="aw1-map-sprite aw1-{{getCountry(i)}}{{units[u].filename}}"></div>
     </div>

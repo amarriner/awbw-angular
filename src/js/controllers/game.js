@@ -18,8 +18,8 @@
         });
     }])
 
-    .controller('GameCtrl', ['$scope', '$routeParams', 'Game', 'Data', 'Utils',
-        function($scope, $routeParams, Game, Data, Utils) {
+    .controller('GameCtrl', ['$scope', '$routeParams', 'Game', 'Data', 'Utils', 'SweetAlert',
+        function($scope, $routeParams, Game, Data, Utils, SweetAlert) {
             
             Data.getAll().then(function(response) {
                 
@@ -29,13 +29,115 @@
                 $scope.terrain = response.terrainData;
                 
                 Game.get($routeParams.slug).then(function(response) {
-                    $scope.game = response.data; 
+                    
+                    $scope.game = response.data.game; 
+                    
+                    //
+                    // Determine active player
+                    //
+                    $scope.activePlayer = $scope.game.players.filter(function(p) { return p.active; });
+                    if ($scope.activePlayer.length === 1) {
+                        $scope.activePlayer = $scope.activePlayer[0];
+                    }
+                    else {
+                        $scope.activePlayer = '';
+                    }
+                    
+                    //
+                    // Adjust map for game-specific objects
+                    //
+                    $scope.map = $scope.game.map;
+                    
+                    angular.forEach($scope.game.units, function(unit, i) {
+                        unit.movementPoints = $scope.units[unit.id].movementPoints;
+                        unit.movementType = $scope.units[unit.id].movementType;
+                        $scope.map.tiles[unit.tile].unit = unit;    
+                    });
+                    
+                    console.log($scope.game);
+                    
+                }).catch(function(response) {
+                    SweetAlert.swal({ title: 'Error', text: response.data.message });
                 });
                 
             });
             
+            $scope.buildUnit = function(i, unit) {
+
+                unit.country = $scope.activePlayer.country;
+                console.log(unit);
+                
+                Game.put($scope.game.slug, 'build', {
+                    unit: unit,
+                    tile: i
+                }).then(function(response) {
+                    console.log('built unit');
+                    console.log(response);
+                }).catch(function(response) {
+                    console.log(response); 
+                });
+            };
+            
             $scope.utils = Utils;
             
+            $scope.movingUnit = '';
+            $scope.getMovement = function(u, m) {
+                $scope.movingUnit = u;
+                $scope.map = Utils.dijkstra(u, m, $scope.terrain);
+            };
+            
+            $scope.moveUnit = function(i) {
+                console.log('Moving unit from ' + $scope.movingUnit.tile + ' to ' + i);
+                
+                Game.put($scope.game.slug, 'move', {
+                    toTile: i,
+                    fromTile: $scope.movingUnit.tile
+                }).then(function(response) {
+                    $scope.movingUnit = '';
+                    angular.forEach($scope.map.tiles, function(v, k) {
+                        $scope.map.tiles[k].cost = 1000;    
+                    });
+                    
+                    console.log('moved unit');
+                    console.log(response);
+                }).catch(function(response) {
+                    $scope.movingUnit = '';
+                    angular.forEach($scope.map.tiles, function(v, k) {
+                        $scope.map.tiles[k].cost = 1000;    
+                    });
+                    
+                    console.log(response); 
+                    $scope.game = response.data.game;
+                });
+            };
+            
+            $scope.getTerrainClass = function(i) {
+                return $scope.getCountry(i) + $scope.getTerrainName(i);
+            };
+            
+            $scope.getCountry = function(i) {
+                return ($scope.map.tiles[i].country || '');
+            };
+            
+            $scope.getTerrainName = function (i) {
+                return $scope.terrain[$scope.map.tiles[i].terrain].name.toLowerCase();
+            };
+            
+            $scope.getUnitClass = function(i) {
+                if (! $scope.map.tiles[i].unit) {
+                    return;
+                }
+                
+                return $scope.map.tiles[i].unit.country + $scope.units[$scope.map.tiles[i].unit.id].filename;
+            };
+            
+            $scope.getUnitName = function(i) {
+                if (! $scope.map.tiles[i].unit) {
+                    return;
+                }
+                
+                return $scope.units[$scope.map.tiles[i].unit.id].name;
+            };
         }   
     ])
     
@@ -64,6 +166,7 @@
                     }
                 });   
             };
+
         }
     ])
     
@@ -98,23 +201,43 @@
             
             $scope.createGame = function() {
                 
+                //
+                // Determines whether the create button is disabled or not
+                //
                 $scope.bD = true;
                 
+                //
+                // Check for required parameters
+                //
                 if (! $scope.game.name) {
-                    SweetAlert.swal({title: 'Error', text: 'Name is required'}, function() { $scope.bD = false; });
-                    return;
+                    return SweetAlert.swal({title: 'Error', text: 'Name is required'}, function() { $scope.bD = false; });
                 }
                 
                 if (! $scope.game.map) {
-                    SweetAlert.swal({title: 'Error', text: 'Map is required'}, function() { $scope.bD = false; });
-                    return;
+                    return SweetAlert.swal({title: 'Error', text: 'Map is required'}, function() { $scope.bD = false; });
+                }
+                
+                if (! $scope.game.country) {
+                    return SweetAlert.swal({title: 'Error', text: 'Country is required'}, function() { $scope.bD = false; });
                 }
 
+                //
+                // Attempt to create the game via the API
+                //
                 Game.post($scope.game).then(function(response) {
+                    
+                    //
+                    // Success, redirect to the game page
+                    //
                     SweetAlert.swal({title: 'Success', text: 'Game created successfully'}, function() {
                         $location.path('/games/' + response.data.game.slug);    
                     });
+                    
                 }).catch(function(response) {
+                    
+                    //
+                    // An error occurred creating the game
+                    //
                     SweetAlert.swal({title: 'Error', text: response.data.message }, function() { 
                         $scope.bD = false; 
                         

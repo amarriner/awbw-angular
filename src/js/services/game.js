@@ -40,6 +40,20 @@
                                 reject(response);
                             });
                     });
+                },
+                
+                put: function(slug, action, params) {
+                    return $q(function(resolve, reject) {
+                       
+                        $http.put('/api/games/' + action + '/' + slug, params)
+                            .then(function(response) {
+                                resolve(response);
+                            })
+                            .catch(function(response) {
+                                reject(response);
+                            });
+                        
+                    });
                 }
                 
            };
