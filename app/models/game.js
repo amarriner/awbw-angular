@@ -4,6 +4,15 @@ var Schema          = mongoose.Schema;
 var Map             = require('./map');
 var User            = require('./user');
 
+var PlayerSchema    = new Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    country: String,
+    active: Boolean
+}, { _id: false });
+
 var GameSchema      = new Schema({
     name: String,
     slug: String,
@@ -14,7 +23,8 @@ var GameSchema      = new Schema({
     map: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Map'
-    }
+    },
+    players: [PlayerSchema]
 });
 
 module.exports = mongoose.model('Game', GameSchema);

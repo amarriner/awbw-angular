@@ -59,7 +59,7 @@
                             }
                         })
                         .catch(function(response) {
-                            SweetAlert.swal({title: 'Error', text: response.data.message });
+                            SweetAlert.swal({ title: 'Error', text: response.data.message });
                         });
                     }
                 });   
