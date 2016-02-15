@@ -28,7 +28,7 @@ function createMap() {
         {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0},
         {terrain: 0}, {terrain: 2}, {terrain: 0}, {terrain: 10, country: 'bm'}, {terrain: 0},
         {terrain: 13, country: 'os'}, {terrain: 4}, {terrain: 4}, {terrain: 4}, {terrain: 13, country: 'bm'},
-        {terrain: 0}, {terrain: 10, country: 'os'}, {terrain: 0}, {terrain: 2}, {terrain: 0},
+        {terrain: 0}, {terrain: 10, country: 'os'}, {terrain: 0}, {terrain: 1}, {terrain: 0},
         {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}, {terrain: 0}
     ];
 

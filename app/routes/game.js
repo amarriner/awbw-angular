@@ -34,29 +34,6 @@ function setSlug(req) {
 }
 
 //
-// Promise wrapper to setting the game's map
-//
-function setMap(req) {
-    
-    var deferred = Q.defer();
-    
-    utils.findModelBySlug(req.body.map, Map).then(function(map) {
-        if (! map) {
-            deferred.reject('Could not find map');
-            return;
-        }
-        
-        req.game.map = map;
-        deferred.resolve(req.game);
-        
-    }).catch(function(err) {
-        deferred.reject(err);
-    });
-    
-    return deferred.promise;
-}
-
-//
 // GAME ROUTE
 //
 router.route('/').
@@ -80,16 +57,34 @@ router.route('/').
     // Create new game, must be authenticated
     //
     .post(authorizationChecks.isUserAuthenticated, function(req, res, next) {
-            
+    
+        //
+        // Make sure required fields are present
+        //
+        if (! req.body.name) {
+            return res.status(400).json({ message: 'Name is required', success: false });
+        }
+    
+        if (! req.body.map) {
+            return res.status(400).json({ message: 'Map is required', success: false });
+        }
+    
+        if (! req.body.country) {
+            return res.status(400).json({ message: 'Country is required', success: false });
+        }
+    
+        //
+        // Instantiate game
+        //
         var game = new Game();
         game.name = req.body.name;
         game.creator = req.user;
         game.map = req.body.map;
-        game.players.push({ user: req.user, country: req.body.country });
+        game.players.push({ user: req.user, country: req.body.country, active: true });
         req.game = game;
     
         //
-        // Set the slug, the map then save the game 
+        // Set the slug then save the game 
         //
         setSlug(req).then(utils.saveModel).then(function(game) {
             res.json({ message: 'Game created', success: true, game: game });
@@ -109,8 +104,7 @@ router.route('/:gameSlug')
     
         req.game.remove(function(err, game) {
             if (err) {
-                res.status(400).json({ message: err, success: false });
-                return;
+                return res.status(400).json({ message: err, success: false });
             }
             
             res.json({ message: 'Deleted game', success: true });
@@ -122,12 +116,16 @@ router.route('/:gameSlug')
     //
     .get(function(req, res) {
         
-        Game.findOne({slug: req.params.game_slug}, function(err, game) {
-            if (err)
-                res.send(err);
+        Game.findOne({slug: req.params.gameSlug})
+            .populate('map players.user')
+            .exec(function(err, game) {
+                if (err) {
+                    return res.status(400).json({ message: err, success: false });
+                }
             
-            res.json(game);
-        });
+                res.json({ game: game, success: true });
+            }
+        );
         
     })
 
@@ -139,13 +137,59 @@ router.route('/:gameSlug')
             req.game.name = req.body.name;
             
             req.game.save(function(err) {
-                if (err)
-                    res.send(err);
+                if (err) {
+                    return res.status(400).json({ message: err, success: false });
+                }
                 
-                res.json({ message: 'Game updated!' });
+                res.json({ message: 'Game updated!', success: true });
             });
         
     });
         
+router.route('/build/:gameSlug')
+    
+    //
+    // Build a unit
+    //
+    .put(authorizationChecks.isActivePlayer, function(req, res) {
+        
+        req.game.units.push({
+            ammo: req.body.unit.ammo,
+            fuel: req.body.unit.fuel,
+            id: req.body.unit.id,
+            country: req.body.unit.country,
+            tile: req.body.tile
+        });
+    
+        req.game.save(function(err) {
+            if (err) {
+                return res.status(400).json({ message: err, success: false });
+            }
+            
+            res.json({ message: 'Game updated!', success: true });    
+        });
+        
+    });
+
+router.route('/move/:gameSlug')
+
+    //
+    // Move a unit
+    //
+    .put(authorizationChecks.isActivePlayer, function(req, res) {
+        
+        var i = req.game.units.map(function(u) { if (u) { return u.tile; } }).indexOf(req.body.fromTile);
+        req.game.units[i].tile = req.body.toTile;
+        console.log(req.game.units);
+    
+        req.game.save(function(err) {
+            if (err) {
+                return res.status(400).json({ message: err, success: false });
+            }
+            
+            console.log('saved');
+            res.json({ message: 'Game updated!', success: true, game: req.game });    
+        });
+    });
 
 module.exports = router;

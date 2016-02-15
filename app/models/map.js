@@ -10,6 +10,7 @@ var TileSchema = new Schema({
 
 var MapSchema = new Schema({
     name: String,
+    slug: String,
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
