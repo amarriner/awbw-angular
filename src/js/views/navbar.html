@@ -40,6 +40,7 @@
                         <li role="presentation" class="dropdown-header" ng-show="currentUser()">{{currentUser().username}}</li>
                         <li role="presentation" ng-show="!currentUser().username">
                             <a href="#/login" ng-click="closeMenu()"><i class="fa fa-sign-in"></i> Login</a>
+                            <a href="#/register" ng-click="closeMenu()"><i class="fa fa-user-plus"></i> Register</a>
                         </li>
                         <li role="presentation" ng-show="currentUser().username">
                             <a class="point" ng-click="logout()"><i class="fa fa-sign-out"></i> Logout</a>
