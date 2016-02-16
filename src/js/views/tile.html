@@ -2,9 +2,9 @@
     <div ng-show="game && ! map.tiles[i].unit">
         <a ng-show="getTerrainClass(i).endsWith('base') && getCountry(i) == activePlayer.country" uib-popover-template="'js/views/base-menu.html'" popover-placement="bottom-left" popover-title="Build Units" popover-trigger="outsideClick"></a>
     </div>
-    <div ng-show="map.tiles[i].unit" class="unit aw1-{{getUnitClass(i)}}">
+    <div ng-show="map.tiles[i].unit" class="unit aw1-{{getUnitClass(i)}}" ng-model="map.tiles[i].unit">
         <div ng-show="map.tiles[i].unit.country == activePlayer.country">
-            <a uib-popover-template="'js/views/unit-menu.html'" popover-placement="bottom-left" popover-title="{{getUnitName(i)}}" popover-trigger="outsideClick"></a>
+            <a uib-popover-template="'js/views/unit-menu.html'" popover-placement="bottom-left" popover-title="{{getUnitName(i)}}" popover-trigger="outsideClick" popover-is-open="popover[i].isOpen"></a>
         </div>
     </div>
     <div ng-show="map.tiles[i].cost && map.tiles[i].cost < 1000" class="movementSquare" ng-click="moveUnit(i)"></div>

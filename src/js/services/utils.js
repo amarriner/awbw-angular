@@ -58,6 +58,7 @@
                                     
                 //
                 // Set local variables to parameters
+                //
                 terrain = t;
                 unit = u;
                 map = m;
