@@ -147,7 +147,7 @@ module.exports = function(grunt) {
         less: {
             app: {
                 files: {
-                    "src/css/app.css": "src/less/*.less"
+                    "src/css/app.css": "src/less/app.less"
                 }
             }
         },
