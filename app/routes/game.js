@@ -5,6 +5,7 @@ var router      = express.Router();
 
 var Game        = require('../models/game');
 var Map         = require('../models/map');
+var Unit        = require('../models/unit');
 var User        = require('../models/user');
 
 var utils               = require('../libs/utils');
@@ -153,13 +154,15 @@ router.route('/build/:gameSlug')
     //
     .put(authorizationChecks.isActivePlayer, function(req, res) {
         
-        req.game.units.push({
-            ammo: req.body.unit.ammo,
-            fuel: req.body.unit.fuel,
-            id: req.body.unit.id,
-            country: req.body.unit.country,
-            tile: req.body.tile
-        });
+        var unit = new Unit();
+    
+        unit.ammo = req.body.unit.ammo;
+        unit.fuel = req.body.unit.fuel;
+        unit.id = req.body.unit.id;
+        unit.country = req.body.unit.country;
+        unit.tile = req.body.tile;
+        
+        req.game.units.push(unit);
     
         req.game.save(function(err) {
             if (err) {
@@ -180,15 +183,13 @@ router.route('/move/:gameSlug')
         
         var i = req.game.units.map(function(u) { if (u) { return u.tile; } }).indexOf(req.body.fromTile);
         req.game.units[i].tile = req.body.toTile;
-        console.log(req.game.units);
     
         req.game.save(function(err) {
             if (err) {
                 return res.status(400).json({ message: err, success: false });
             }
             
-            console.log('saved');
-            res.json({ message: 'Game updated!', success: true, game: req.game });    
+            res.json({ message: 'Game updated!', success: true });    
         });
     });
 

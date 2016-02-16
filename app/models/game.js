@@ -3,6 +3,7 @@ var Schema          = mongoose.Schema;
 
 var Map             = require('./map');
 var User            = require('./user');
+var Unit            = require('./unit');
 
 var PlayerSchema    = new Schema({
     user: {
@@ -28,7 +29,7 @@ var GameSchema      = new Schema({
     startDate: Date,
     activityDate: Date,
     endDate: Date,
-    units: [Schema.Types.Mixed]
+    units: [Unit.schema]
 });
 
 module.exports = mongoose.model('Game', GameSchema);
