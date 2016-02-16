@@ -2,16 +2,16 @@
 
 <div class="row" ng-repeat="r in data | orderBy: ['country', 'name']">
     <div class="col-md-1" style="vertical-align: middle;">
-        <div class="inline aw1-{{r.name.toLowerCase().replace(' ','')}}"></div>
+        <div class="aw1-{{r.name.toLowerCase().replace(' ','')}} vcenter"></div>
     </div>
     
     <div class="col-md-1">
-        <div class="{{r.country}}logo"></div>
+        <div class="{{r.country}}logo vcenter"></div>
     </div>
     
-    <div class="col-md-3">{{r.name}}</div>
+    <div class="col-md-3 vcenter">{{r.name}}</div>
     
-    <div class="col-md-4">
+    <div class="col-md-4 vcenter">
         <div>{{r.powerName}} :: {{r.spowerName}}</div>
     </div>
 </div>
