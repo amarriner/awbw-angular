@@ -21,13 +21,21 @@
     .controller('GameCtrl', ['$scope', '$routeParams', 'Game', 'Data', 'Utils', 'SweetAlert',
         function($scope, $routeParams, Game, Data, Utils, SweetAlert) {
             
+            $scope.utils = Utils;
+            
+            //
+            // Get all static data
+            //
             Data.getAll().then(function(response) {
                 
                 $scope.menuData = response.menuData;
                 $scope.units = response.unitData;
                 $scope.countries = response.countryData;
                 $scope.terrain = response.terrainData;
-                
+              
+                //
+                // Find the game
+                //
                 Game.get($routeParams.slug).then(function(response) {
                     
                     $scope.game = response.data.game; 
@@ -62,23 +70,35 @@
                 
             });
             
+            // ----------------------------------------------------------------
+            // Build units
+            // ----------------------------------------------------------------
             $scope.buildUnit = function(i, unit) {
 
+                //
+                // Set the country of the pending unit to the same as the 
+                // active player
+                //
                 unit.country = $scope.activePlayer.country;
-                console.log(unit);
                 
+                //
+                // Send API call 
+                //
                 Game.put($scope.game.slug, 'build', {
                     unit: unit,
                     tile: i
                 }).then(function(response) {
-                    console.log('built unit');
-                    console.log(response);
+                    
+                    //
+                    // Add unit to game on the client
+                    //
+                    unit.tile = i;
+                    $scope.game.units.push(unit);
+                    
                 }).catch(function(response) {
-                    console.log(response); 
+                    SweetAlert.swal({ title: 'Error', text: response.data.message }); 
                 });
             };
-            
-            $scope.utils = Utils;
             
             $scope.movingUnit = '';
             $scope.getMovement = function(u, m) {
@@ -86,28 +106,35 @@
                 $scope.map = Utils.dijkstra(u, m, $scope.terrain);
             };
             
+            $scope.clearMovementSquares = function() {
+                $scope.movingUnit = '';
+                angular.forEach($scope.map.tiles, function(v, k) {
+                    $scope.map.tiles[k].cost = 1000;    
+                });   
+            };
+            
+            // ----------------------------------------------------------------
+            // Move units
+            // ----------------------------------------------------------------
             $scope.moveUnit = function(i) {
-                console.log('Moving unit from ' + $scope.movingUnit.tile + ' to ' + i);
                 
                 Game.put($scope.game.slug, 'move', {
                     toTile: i,
                     fromTile: $scope.movingUnit.tile
                 }).then(function(response) {
-                    $scope.movingUnit = '';
-                    angular.forEach($scope.map.tiles, function(v, k) {
-                        $scope.map.tiles[k].cost = 1000;    
-                    });
                     
-                    console.log('moved unit');
-                    console.log(response);
+                    // 
+                    // Move unit on the client
+                    //
+                    var i = $scope.game.units.map(function(u) { if (u) { return u.tile; } }).indexOf($scope.movingUnit.tile);
+                    $scope.game.units[i].tile = i;
+                    $scope.clearMovementSquares();
+                    
                 }).catch(function(response) {
-                    $scope.movingUnit = '';
-                    angular.forEach($scope.map.tiles, function(v, k) {
-                        $scope.map.tiles[k].cost = 1000;    
-                    });
                     
-                    console.log(response); 
-                    $scope.game = response.data.game;
+                    $scope.clearMovementSquares();                    
+                    SweetAlert.swal({ title: 'Error', text: response.data.message }); 
+                    
                 });
             };
             
