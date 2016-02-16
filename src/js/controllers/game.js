@@ -18,9 +18,10 @@
         });
     }])
 
-    .controller('GameCtrl', ['$scope', '$routeParams', 'Game', 'Data', 'Utils', 'SweetAlert',
-        function($scope, $routeParams, Game, Data, Utils, SweetAlert) {
+    .controller('GameCtrl', ['$scope', '$routeParams', '$timeout', 'Game', 'Data', 'Utils', 'SweetAlert',
+        function($scope, $routeParams, $timeout, Game, Data, Utils, SweetAlert) {
             
+            $scope.popover = [];
             $scope.utils = Utils;
             
             //
@@ -62,8 +63,6 @@
                         $scope.map.tiles[unit.tile].unit = unit;    
                     });
                     
-                    console.log($scope.game);
-                    
                 }).catch(function(response) {
                     SweetAlert.swal({ title: 'Error', text: response.data.message });
                 });
@@ -94,23 +93,11 @@
                     //
                     unit.tile = i;
                     $scope.game.units.push(unit);
+                    $scope.map.tiles[i].unit = unit;
                     
                 }).catch(function(response) {
                     SweetAlert.swal({ title: 'Error', text: response.data.message }); 
                 });
-            };
-            
-            $scope.movingUnit = '';
-            $scope.getMovement = function(u, m) {
-                $scope.movingUnit = u;
-                $scope.map = Utils.dijkstra(u, m, $scope.terrain);
-            };
-            
-            $scope.clearMovementSquares = function() {
-                $scope.movingUnit = '';
-                angular.forEach($scope.map.tiles, function(v, k) {
-                    $scope.map.tiles[k].cost = 1000;    
-                });   
             };
             
             // ----------------------------------------------------------------
@@ -126,16 +113,35 @@
                     // 
                     // Move unit on the client
                     //
-                    var i = $scope.game.units.map(function(u) { if (u) { return u.tile; } }).indexOf($scope.movingUnit.tile);
-                    $scope.game.units[i].tile = i;
+                    $scope.map.tiles[i].unit = $scope.map.tiles[$scope.movingUnit.tile].unit;
+                    delete($scope.map.tiles[$scope.movingUnit.tile].unit);
+                    var f = $scope.game.units.map(function(u) { if (u) { return u.tile; } }).indexOf($scope.movingUnit.tile);
+                    $scope.game.units[f].tile = i;
                     $scope.clearMovementSquares();
-                    
+                     
                 }).catch(function(response) {
                     
                     $scope.clearMovementSquares();                    
                     SweetAlert.swal({ title: 'Error', text: response.data.message }); 
                     
                 });
+            };
+            
+            //
+            // Helper functions
+            //
+            $scope.movingUnit = '';
+            $scope.getMovement = function(u, m) {
+                $scope.popover[u.tile].isOpen = false;
+                $scope.movingUnit = u;
+                $scope.map = Utils.dijkstra(u, m, $scope.terrain);
+            };
+            
+            $scope.clearMovementSquares = function() {
+                $scope.movingUnit = '';
+                angular.forEach($scope.map.tiles, function(v, k) {
+                    $scope.map.tiles[k].cost = 1000;    
+                });   
             };
             
             $scope.getTerrainClass = function(i) {

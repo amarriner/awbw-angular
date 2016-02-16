@@ -1,12 +1,12 @@
-(function(){"use strict";var a=angular.module("advanceWarsByWeb",["ngResource","ngRoute","oitozero.ngSweetAlert","ui.bootstrap","ui.bootstrap.popover","advanceWarsByWeb.coData","advanceWarsByWeb.dataService","advanceWarsByWeb.game","advanceWarsByWeb.gameService","advanceWarsByWeb.login","advanceWarsByWeb.loginService","advanceWarsByWeb.map","advanceWarsByWeb.mapService","advanceWarsByWeb.navbar","advanceWarsByWeb.register","advanceWarsByWeb.utilsService"]).config(["$routeProvider",function(a){a.when("/",{templateUrl:"js/views/index.html"})}]).directive("setFocus",["$timeout","$parse",function(a,b){return{link:function(c,d,e){var f=b(e.setFocus);c.$watch(f,function(b){if(b===true){a(function(){d[0].focus()})}})}}}]).directive("tile",[function(){return{restrict:"E",templateUrl:"js/views/tile.html"}}]);a.factory("authInterceptor",["$window","$location","$q",function(a,b,c){return{request:function(b){b.headers=b.headers||{};if(a.sessionStorage.token){b.headers["x-access-token"]=a.sessionStorage.token}return b},response:function(a){return a},responseError:function(d){if(b.path()!=="/login"){a.sessionStorage.previousLocation=b.path()}return c.reject(d)}}}]).config(["$httpProvider",function(a){a.interceptors.push("authInterceptor")}])})();(function(){"use strict";angular.module("advanceWarsByWeb.coData",["ngRoute"]).config(["$routeProvider",function(a){a.when("/co-data",{templateUrl:"js/views/co-data.html",controller:"CoDataCtrl"})}]).controller("CoDataCtrl",["$scope","Data",function(a,b){b.getCoData().then(function(b){a.data=b.data}).catch(function(a){})}])})();(function(){"use strict";angular.module("advanceWarsByWeb.game",["ngRoute"]).config(["$routeProvider",function(a){a.when("/games",{templateUrl:"js/views/games.html",controller:"GamesCtrl"}).when("/games/create",{templateUrl:"js/views/game-create.html",controller:"GameCreateCtrl"}).when("/games/:slug",{templateUrl:"js/views/game.html",controller:"GameCtrl"})}]).controller("GameCtrl",["$scope","$routeParams","Game","Data","Utils","SweetAlert",function(a,b,c,d,e,f){a.utils=e;
+(function(){"use strict";var a=angular.module("advanceWarsByWeb",["ngResource","ngRoute","oitozero.ngSweetAlert","ui.bootstrap","ui.bootstrap.popover","advanceWarsByWeb.coData","advanceWarsByWeb.dataService","advanceWarsByWeb.game","advanceWarsByWeb.gameService","advanceWarsByWeb.login","advanceWarsByWeb.loginService","advanceWarsByWeb.map","advanceWarsByWeb.mapService","advanceWarsByWeb.navbar","advanceWarsByWeb.register","advanceWarsByWeb.utilsService"]).config(["$routeProvider",function(a){a.when("/",{templateUrl:"js/views/index.html"})}]).directive("setFocus",["$timeout","$parse",function(a,b){return{link:function(c,d,e){var f=b(e.setFocus);c.$watch(f,function(b){if(b===true){a(function(){d[0].focus()})}})}}}]).directive("tile",[function(){return{restrict:"E",templateUrl:"js/views/tile.html"}}]);a.factory("authInterceptor",["$window","$location","$q",function(a,b,c){return{request:function(b){b.headers=b.headers||{};if(a.sessionStorage.token){b.headers["x-access-token"]=a.sessionStorage.token}return b},response:function(a){return a},responseError:function(d){if(b.path()!=="/login"){a.sessionStorage.previousLocation=b.path()}return c.reject(d)}}}]).config(["$httpProvider",function(a){a.interceptors.push("authInterceptor")}])})();(function(){"use strict";angular.module("advanceWarsByWeb.coData",["ngRoute"]).config(["$routeProvider",function(a){a.when("/co-data",{templateUrl:"js/views/co-data.html",controller:"CoDataCtrl"})}]).controller("CoDataCtrl",["$scope","Data",function(a,b){b.getCoData().then(function(b){a.data=b.data}).catch(function(a){})}])})();(function(){"use strict";angular.module("advanceWarsByWeb.game",["ngRoute"]).config(["$routeProvider",function(a){a.when("/games",{templateUrl:"js/views/games.html",controller:"GamesCtrl"}).when("/games/create",{templateUrl:"js/views/game-create.html",controller:"GameCreateCtrl"}).when("/games/:slug",{templateUrl:"js/views/game.html",controller:"GameCtrl"})}]).controller("GameCtrl",["$scope","$routeParams","$timeout","Game","Data","Utils","SweetAlert",function(a,b,c,d,e,f,g){a.popover=[];a.utils=f;
 //
 // Get all static data
 //
-d.getAll().then(function(d){a.menuData=d.menuData;a.units=d.unitData;a.countries=d.countryData;a.terrain=d.terrainData;
+e.getAll().then(function(c){a.menuData=c.menuData;a.units=c.unitData;a.countries=c.countryData;a.terrain=c.terrainData;
 //
 // Find the game
 //
-c.get(b.slug).then(function(b){a.game=b.data.game;
+d.get(b.slug).then(function(b){a.game=b.data.game;
 //
 // Determine active player
 //
@@ -14,32 +14,36 @@ a.activePlayer=a.game.players.filter(function(a){return a.active});if(a.activePl
 //
 // Adjust map for game-specific objects
 //
-a.map=a.game.map;angular.forEach(a.game.units,function(b,c){b.movementPoints=a.units[b.id].movementPoints;b.movementType=a.units[b.id].movementType;a.map.tiles[b.tile].unit=b});console.log(a.game)}).catch(function(a){f.swal({title:"Error",text:a.data.message})})});
+a.map=a.game.map;angular.forEach(a.game.units,function(b,c){b.movementPoints=a.units[b.id].movementPoints;b.movementType=a.units[b.id].movementType;a.map.tiles[b.tile].unit=b})}).catch(function(a){g.swal({title:"Error",text:a.data.message})})});
 // ----------------------------------------------------------------
 // Build units
 // ----------------------------------------------------------------
-a.buildUnit=function(b,d){
+a.buildUnit=function(b,c){
 //
 // Set the country of the pending unit to the same as the 
 // active player
 //
-d.country=a.activePlayer.country;
+c.country=a.activePlayer.country;
 //
 // Send API call 
 //
-c.put(a.game.slug,"build",{unit:d,tile:b}).then(function(c){
+d.put(a.game.slug,"build",{unit:c,tile:b}).then(function(d){
 //
 // Add unit to game on the client
 //
-d.tile=b;a.game.units.push(d)}).catch(function(a){f.swal({title:"Error",text:a.data.message})})};a.movingUnit="";a.getMovement=function(b,c){a.movingUnit=b;a.map=e.dijkstra(b,c,a.terrain)};a.clearMovementSquares=function(){a.movingUnit="";angular.forEach(a.map.tiles,function(b,c){a.map.tiles[c].cost=1e3})};
+c.tile=b;a.game.units.push(c);a.map.tiles[b].unit=c}).catch(function(a){g.swal({title:"Error",text:a.data.message})})};
 // ----------------------------------------------------------------
 // Move units
 // ----------------------------------------------------------------
-a.moveUnit=function(b){c.put(a.game.slug,"move",{toTile:b,fromTile:a.movingUnit.tile}).then(function(b){
+a.moveUnit=function(b){d.put(a.game.slug,"move",{toTile:b,fromTile:a.movingUnit.tile}).then(function(c){
 // 
 // Move unit on the client
 //
-var c=a.game.units.map(function(a){if(a){return a.tile}}).indexOf(a.movingUnit.tile);a.game.units[c].tile=c;a.clearMovementSquares()}).catch(function(b){a.clearMovementSquares();f.swal({title:"Error",text:b.data.message})})};a.getTerrainClass=function(b){return a.getCountry(b)+a.getTerrainName(b)};a.getCountry=function(b){return a.map.tiles[b].country||""};a.getTerrainName=function(b){return a.terrain[a.map.tiles[b].terrain].name.toLowerCase()};a.getUnitClass=function(b){if(!a.map.tiles[b].unit){return}return a.map.tiles[b].unit.country+a.units[a.map.tiles[b].unit.id].filename};a.getUnitName=function(b){if(!a.map.tiles[b].unit){return}return a.units[a.map.tiles[b].unit.id].name}}]).controller("GamesCtrl",["$scope","Game","SweetAlert",function(a,b,c){b.get().then(function(b){a.games=b.data});a.deleteGame=function(d){c.swal({title:"Delete "+d.name,text:"Are you sure you want to delete this game?",showCancelButton:true},function(e){if(e){b.delete(d.slug).then(function(b){if(b.status===200){a.games.splice(a.games.indexOf(d),1)}}).catch(function(a){c.swal({title:"Error",text:a.data.message})})}})}}]).controller("GameCreateCtrl",["$scope","$location","Data","Game","Map","SweetAlert",function(a,b,c,d,e,f){a.game={};a.bD=false;e.get().then(function(b){a.maps=b.data});c.getCountryData().then(function(b){a.countryData=b.data});a.changeMap=function(){a.mapCountries=[];angular.forEach(a.game.map.tiles,function(b,c){var d=a.countryData.filter(function(a){return a.abbreviation===b.country})[0];if(b.country&&a.mapCountries.indexOf(d)===-1){a.mapCountries.push(d)}})};a.createGame=function(){
+a.map.tiles[b].unit=a.map.tiles[a.movingUnit.tile].unit;delete a.map.tiles[a.movingUnit.tile].unit;var d=a.game.units.map(function(a){if(a){return a.tile}}).indexOf(a.movingUnit.tile);a.game.units[d].tile=b;a.clearMovementSquares()}).catch(function(b){a.clearMovementSquares();g.swal({title:"Error",text:b.data.message})})};
+//
+// Helper functions
+//
+a.movingUnit="";a.getMovement=function(b,c){a.popover[b.tile].isOpen=false;a.movingUnit=b;a.map=f.dijkstra(b,c,a.terrain)};a.clearMovementSquares=function(){a.movingUnit="";angular.forEach(a.map.tiles,function(b,c){a.map.tiles[c].cost=1e3})};a.getTerrainClass=function(b){return a.getCountry(b)+a.getTerrainName(b)};a.getCountry=function(b){return a.map.tiles[b].country||""};a.getTerrainName=function(b){return a.terrain[a.map.tiles[b].terrain].name.toLowerCase()};a.getUnitClass=function(b){if(!a.map.tiles[b].unit){return}return a.map.tiles[b].unit.country+a.units[a.map.tiles[b].unit.id].filename};a.getUnitName=function(b){if(!a.map.tiles[b].unit){return}return a.units[a.map.tiles[b].unit.id].name}}]).controller("GamesCtrl",["$scope","Game","SweetAlert",function(a,b,c){b.get().then(function(b){a.games=b.data});a.deleteGame=function(d){c.swal({title:"Delete "+d.name,text:"Are you sure you want to delete this game?",showCancelButton:true},function(e){if(e){b.delete(d.slug).then(function(b){if(b.status===200){a.games.splice(a.games.indexOf(d),1)}}).catch(function(a){c.swal({title:"Error",text:a.data.message})})}})}}]).controller("GameCreateCtrl",["$scope","$location","Data","Game","Map","SweetAlert",function(a,b,c,d,e,f){a.game={};a.bD=false;e.get().then(function(b){a.maps=b.data});c.getCountryData().then(function(b){a.countryData=b.data});a.changeMap=function(){a.mapCountries=[];angular.forEach(a.game.map.tiles,function(b,c){var d=a.countryData.filter(function(a){return a.abbreviation===b.country})[0];if(b.country&&a.mapCountries.indexOf(d)===-1){a.mapCountries.push(d)}})};a.createGame=function(){
 //
 // Determines whether the create button is disabled or not
 //
@@ -128,6 +132,7 @@ if((f+1)%d.width){e(f,f+1)}
 e(f,f-d.width);e(f,f+d.width)}};var f=function(a,f,g){
 //
 // Set local variables to parameters
+//
 b=g;c=a;d=f;
 //
 // Initialize map

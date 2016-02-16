@@ -94,6 +94,7 @@ module.exports = function(grunt) {
                     'context-menu-callback',
                     'context-menu-click',
                     'context-menu-items',
+                    'popover-is-open',
                     'popover-placement',
                     'popover-title',
                     'popover-trigger',
