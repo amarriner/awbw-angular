@@ -8,7 +8,7 @@ var functions = {
     isUserAuthenticated: function(req, res, next) {
         
         if (! req.user) {
-            res.status(400).json({ message: 'Missing user', success: false });
+            res.status(400).json({ message: 'Missing user' });
         }
         
         if (req.user.authenticated) {
@@ -16,7 +16,7 @@ var functions = {
         }
         
         else {
-            res.status(401).json({ message: 'Not authenticated', success: false });
+            res.status(401).json({ message: 'Not authenticated' });
         }
     },
     
@@ -25,20 +25,20 @@ var functions = {
     //
     isActivePlayer: function(req, res, next) {
         if (! req.user) {
-            return res.status(400).json({ message: 'Missing user', success: false });
+            return res.status(400).json({ message: 'Missing user' });
         } 
         
         if (! req.params.gameSlug) {
-            return res.status(400).json({ message: 'Missing game slug', success: false });    
+            return res.status(400).json({ message: 'Missing game slug' });    
         }
         
-        Game.findOne({ slug: req.params.gameSlug }).populate('creator players.user').exec(function(err, game) {
+        Game.findOne({ slug: req.params.gameSlug }).populate('creator players.user map').exec(function(err, game) {
             if (err) {
-                return res.status(500).json({ message: 'Error retrieving game', success: false });
+                return res.status(500).json({ message: 'Error retrieving game' });
             }
             
             if (!game) {
-                return res.status(404).json({ message: 'Game not found', success: false });
+                return res.status(404).json({ message: 'Game not found' });
             }
             
             var activePlayer = game.players.filter(function(p) { return p.active; });
@@ -50,12 +50,12 @@ var functions = {
                     next();
                 }
                 else {
-                    return res.status(400).json({ message: 'Authenticated user not the active player in this game', success: false });    
+                    return res.status(400).json({ message: 'Authenticated user not the active player in this game' });    
                 }
             }
             
             else {
-                return res.status(400).json({ message: 'Cannot determine active player', success: false });
+                return res.status(400).json({ message: 'Cannot determine active player' });
             }
             
         });
@@ -67,20 +67,20 @@ var functions = {
     userCreatedGame: function(req, res, next) {
 
         if (! req.user) {
-            return res.status(400).json({ message: 'Missing user', success: false });
+            return res.status(400).json({ message: 'Missing user' });
         }
     
         if (! req.params.gameSlug) {
-            return res.status(400).json({ message: 'Missing game slug', success: false });
+            return res.status(400).json({ message: 'Missing game slug' });
         }
     
         Game.findOne({ slug: req.params.gameSlug }).populate('creator').exec(function(err, game) {
             if (err) {
-                return res.status(500).json({ message: 'Error retrieving game', success: false });
+                return res.status(500).json({ message: 'Error retrieving game' });
             }
             
             if (!game) {
-                return res.status(404).json({ message: 'Game not found', success: false });
+                return res.status(404).json({ message: 'Game not found' });
             }
         
             if (game.creator._id.equals(req.user._id)) {
@@ -90,8 +90,7 @@ var functions = {
         
             else {
                 res.status(401).json({ 
-                    message: 'Authenticated user did not create this game',
-                    success: false 
+                    message: 'Authenticated user did not create this game'
                 });
             }
         });
@@ -104,23 +103,23 @@ var functions = {
     userCreatedMap: function(req, res, next) {
         
         if (! req.user) {
-            res.status(400).json({ message: 'Missing user', success: false });
+            res.status(400).json({ message: 'Missing user' });
             return;
         }
     
         if (! mapSlug) {
-            res.status(400).json({ message: 'Missing map slug', success: false });
+            res.status(400).json({ message: 'Missing map slug' });
             return;
         }
     
         Map.findOne({ slug: req.body.mapSlug }).populate('creator').exec(function(err, map) {
             if (err) {
-                res.status(500).json({ message: 'Error retrieving map', success: false });
+                res.status(500).json({ message: 'Error retrieving map' });
                 return;
             }
             
             if (!map) {
-                res.status(404).json({ message: 'Map not found', success: false });
+                res.status(404).json({ message: 'Map not found' });
                 return;
             }
         
@@ -131,8 +130,7 @@ var functions = {
         
             else {
                 res.status(401).json({ 
-                    message: 'Authenticated user did not create this map',
-                    success: false 
+                    message: 'Authenticated user did not create this map'
                 });
             }
         });
@@ -145,12 +143,12 @@ var functions = {
     userIsAuthenticatedUser: function(req, res, next) {
  
         if (! req.user) {
-            res.status(400).json({ message: 'Missing user', success: false} );
+            res.status(400).json({ message: 'Missing user'} );
             return;
         }
     
         if (! userId) {
-            res.status(400).json({ message: 'Missing user ID', success: false} );
+            res.status(400).json({ message: 'Missing user ID'} );
             return;
         }
     
@@ -159,7 +157,7 @@ var functions = {
         }
     
         else {
-            res.status(400).json({ message: 'Authenticated user is not this user', success: false} );
+            res.status(400).json({ message: 'Authenticated user is not this user' } );
         }
                 
     }

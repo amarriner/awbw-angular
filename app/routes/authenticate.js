@@ -20,7 +20,7 @@ authRouter.route('/')
         //
         User.findOne({ username: req.body.username }, function(err, user) {
             if (err) {
-                res.status(401).json({ success: false, message: err });
+                res.status(401).json({ message: err });
             }
              
             //
@@ -32,7 +32,7 @@ authRouter.route('/')
                 // Check for missing password
                 //
                 if (! req.body.password) {
-                    res.status(401).json({ message: 'Missing password', success: false });
+                    res.status(401).json({ message: 'Missing password' });
                     return;
                 }
                 
@@ -52,16 +52,16 @@ authRouter.route('/')
                     //
                     // Return it as JSON
                     //
-                    res.json({ success: true, message: 'Authenticated successfully', token: token, user: user });
+                    res.json({ message: 'Authenticated successfully', token: token, user: user });
                     
                 }
                 else {
-                    res.status(401).json({ success: false, message: 'Invalid password' });
+                    res.status(401).json({ message: 'Invalid password' });
                 }
                 
             }
             else {
-                res.status(401).json({ success: false, message: 'Invalid username' });
+                res.status(401).json({ message: 'Invalid username' });
             }
         });
         
@@ -72,7 +72,7 @@ checkRouter.route('/')
     .post(authorizationChecks.isUserAuthenticated, function(req, res) {
 
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
-        res.json({ success: true, message: 'Token authenticated successfully', token: token, user: req.user });
+        res.json({ message: 'Token authenticated successfully', token: token, user: req.user });
         
     });
 

@@ -2,29 +2,32 @@ div.clear {
     clear: both;
 }
 
+.square {
+    bottom: 0;
+    display: block;
+    height: 16px;
+    left: 0;
+    width: 16px;    
+}
+
 .spritesheet {
     background: url('../images/aw1-sprites.png') no-repeat;
 }
 
 div.aw1-map-sprite {
     .spritesheet;
-    display: block;
+    .square;
     float: left;
-    height: 16px;
     position: relative;
-    width: 16px;
 }
 
 div.aw1-map-sprite a, div.unit a {
-    bottom: 0;
-    display: block;
-    height: 16px;
-    left: 0;
+    .square;
     position: absolute;
-    width: 16px;
 }
 
 div.movementSquare {
+    .square;
     background-color: red;
     opacity: .65;
     bottom: 1px;
@@ -32,17 +35,15 @@ div.movementSquare {
     height: 14px;
     left: 1px;
     position: absolute;
-    width: 14px;    
+    width: 14px;
+    z-index: 500;
 }
 
 div.unit {
     .spritesheet;
-    bottom: 0;
-    display: block;
-    height: 16px;
-    left: 0;
+    .square;
     position: absolute;
-    width: 16px;    
+    z-index: 750;
 }
 
 div.aw1-map-sprite .popover-content {

@@ -7040,16 +7040,25 @@ button.close {
 div.clear {
   clear: both;
 }
+.square {
+  bottom: 0;
+  display: block;
+  height: 16px;
+  left: 0;
+  width: 16px;
+}
 .spritesheet {
   background: url('../images/aw1-sprites.png') no-repeat;
 }
 div.aw1-map-sprite {
   background: url('../images/aw1-sprites.png') no-repeat;
+  bottom: 0;
   display: block;
-  float: left;
   height: 16px;
-  position: relative;
+  left: 0;
   width: 16px;
+  float: left;
+  position: relative;
 }
 div.aw1-map-sprite a,
 div.unit a {
@@ -7057,10 +7066,14 @@ div.unit a {
   display: block;
   height: 16px;
   left: 0;
-  position: absolute;
   width: 16px;
+  position: absolute;
 }
 div.movementSquare {
+  bottom: 0;
+  height: 16px;
+  left: 0;
+  width: 16px;
   background-color: red;
   opacity: .65;
   bottom: 1px;
@@ -7069,6 +7082,7 @@ div.movementSquare {
   left: 1px;
   position: absolute;
   width: 14px;
+  z-index: 500;
 }
 div.unit {
   background: url('../images/aw1-sprites.png') no-repeat;
@@ -7076,8 +7090,9 @@ div.unit {
   display: block;
   height: 16px;
   left: 0;
-  position: absolute;
   width: 16px;
+  position: absolute;
+  z-index: 750;
 }
 div.aw1-map-sprite .popover-content {
   min-width: 200px;
@@ -7199,6 +7214,9 @@ body {
   font-family: 'Open Sans', sans-serif;
   margin-top: 65px;
 }
+#navbar .nav {
+  -webkit-backface-visibility: hidden;
+}
 .navbar-default .navbar-brand {
   font-weight: 700;
 }
@@ -7220,6 +7238,10 @@ h4 {
 }
 #content {
   padding-bottom: 150px;
+}
+#players {
+  clear: both;
+  margin-top: 25px;
 }
 .point {
   cursor: pointer;

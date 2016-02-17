@@ -6,7 +6,8 @@ var UnitSchema = new Schema({
     fuel: Number,
     id: Number,
     country: String,
-    tile: Number
+    tile: Number,
+    moved: Boolean
 }, { _id: false });
 
 module.exports = mongoose.model('Unit', UnitSchema);

@@ -18,11 +18,12 @@
         });
     }])
 
-    .controller('GameCtrl', ['$scope', '$routeParams', '$timeout', 'Game', 'Data', 'Utils', 'SweetAlert',
-        function($scope, $routeParams, $timeout, Game, Data, Utils, SweetAlert) {
+    .controller('GameCtrl', ['$scope', '$routeParams', '$timeout', 'Game', 'Data', 'Utils', 'SweetAlert', 'Login',
+        function($scope, $routeParams, $timeout, Game, Data, Utils, SweetAlert, Login) {
             
             $scope.popover = [];
             $scope.utils = Utils;
+            $scope.currentUser = Login.getCurrentUser;
             
             //
             // Get all static data
@@ -107,7 +108,8 @@
                 
                 Game.put($scope.game.slug, 'move', {
                     toTile: i,
-                    fromTile: $scope.movingUnit.tile
+                    fromTile: $scope.movingUnit.tile,
+                    cost: $scope.map.tiles[i].cost
                 }).then(function(response) {
                     
                     // 
@@ -122,6 +124,40 @@
                 }).catch(function(response) {
                     
                     $scope.clearMovementSquares();                    
+                    SweetAlert.swal({ title: 'Error', text: response.data.message }); 
+                    
+                });
+            };
+            
+            // ----------------------------------------------------------------
+            // Start Game
+            // ----------------------------------------------------------------
+            $scope.startGame = function() {
+                
+                Game.put($scope.game.slug, 'start').then(function (response) {
+                    
+                    $scope.game = response.data.game;
+                    SweetAlert.swal({ title: 'Success', text: response.data.message }); 
+                    
+                }).catch(function(response) {
+                    
+                    SweetAlert.swal({ title: 'Error', text: response.data.message }); 
+                    
+                });
+            };
+            
+            // ----------------------------------------------------------------
+            // End Turn
+            // ----------------------------------------------------------------
+            $scope.endTurn = function() {
+                
+                Game.put($scope.game.slug, 'end-turn').then(function (response) {
+                    
+                    $scope.game = response.data.game;
+                    SweetAlert.swal({ title: 'Success', text: response.data.message }); 
+                    
+                }).catch(function(response) {
+                    
                     SweetAlert.swal({ title: 'Error', text: response.data.message }); 
                     
                 });
@@ -271,7 +307,7 @@
                     //
                     // An error occurred creating the game
                     //
-                    SweetAlert.swal({title: 'Error', text: response.data.message }, function() { 
+                    SweetAlert.swal({title: 'Error', text: JSON.stringify(response) }, function() { 
                         $scope.bD = false; 
                         
                         if (response.status === 401) {

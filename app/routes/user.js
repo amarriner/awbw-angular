@@ -30,12 +30,12 @@ router.route('/')
     .post(function(req, res) {
     
         if (! req.body.username) {
-            res.status(400).json({ message: 'Missing username', success: false });
+            res.status(400).json({ message: 'Missing username' });
             return;
         }
     
         if (! req.body.password) {
-            res.status(400).json({ message: 'Missing password', success: false });
+            res.status(400).json({ message: 'Missing password' });
             return;
         }
     
@@ -55,7 +55,7 @@ router.route('/')
             }
             
             if (result) {
-                res.status(400).json({ message: 'There is already a user named ' + req.body.username, success: false });
+                res.status(400).json({ message: 'There is already a user named ' + req.body.username });
             }
             
             else {
@@ -66,8 +66,7 @@ router.route('/')
                     }
         
                     res.json({
-                        message: 'User Created', 
-                        success: true, 
+                        message: 'User Created',
                         user: user, 
                         token: jwt.sign(user, config.secret, {
                             expiresIn: config.tokenExpirationTime

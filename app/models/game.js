@@ -11,7 +11,8 @@ var PlayerSchema    = new Schema({
         ref: 'User'
     },
     country: String,
-    active: Boolean
+    active: Boolean,
+    funds: Number
 }, { _id: false });
 
 var GameSchema      = new Schema({

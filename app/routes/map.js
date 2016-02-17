@@ -35,14 +35,14 @@ router.route('/')
         var map = new Map();
     
         if (! req.body.name) {
-            res.status(400).json({ message: 'Missing map name', success: false });
+            res.status(400).json({ message: 'Missing map name' });
             return;
         }
     
         map.name = req.body.name;
     
         if (! req.body.width) {
-            res.status(400).json({ message: 'Missing map width', success: false });
+            res.status(400).json({ message: 'Missing map width' });
             return;
         }
         

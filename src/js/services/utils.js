@@ -17,13 +17,30 @@
                 
                 //
                 // Calculate cost to current square, if we're out of 
-                // MP or fuel, return
+                // MP or (TODO) fuel, return
                 //
-                
                 var cost = parseInt(map.tiles[prev].cost) +
                             parseInt(terrain[map.tiles[next].terrain].costs.C[unit.movementType]);
                 
                 if (cost > unit.movementPoints) { return; }
+                
+                //
+                // If there is a unit in this square, make sure we can pass through it
+                //
+                if (map.tiles[next].unit) {
+                    
+                    //
+                    // If the unit is from another player, return
+                    //
+                    if (map.tiles[next].unit.country !== unit) { return; }
+                    
+                    //
+                    // If it's the same country, but the unit would be out of
+                    // MP or (TODO) fuel, return
+                    // (TODO) Add APC/Lander/T-Copter checks
+                    //
+                    if (cost === unit.movementPoints) { return; }
+                }
                 
                 //
                 // Update cost for current square, and then check neighbors if
@@ -75,11 +92,11 @@
                 //
                 // Begin checking squares for costs
                 //
-                if (i % map.width) {
+                if (unit.tile % map.width) {
                     checkSquare(unit.tile, unit.tile - 1);
                 }
             
-                if ((i + 1) % map.width) {
+                if ((unit.tile + 1) % map.width) {
                     checkSquare(unit.tile, unit.tile + 1);
                 }
             

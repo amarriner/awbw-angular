@@ -12,7 +12,7 @@ router.use(function(req, res, next) {
     //
     // Assume not authenticated
     //
-    req.user = { authenticated: false, success: false };
+    req.user = { authenticated: false };
     
     //
     // Get the JWT from the request

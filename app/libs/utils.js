@@ -1,7 +1,51 @@
 var Q       = require('q');
 var slug    = require('slug');
 
-module.exports = {
+var utils = {
+    
+    //
+    // Function to get run at the beginning of a player's turn
+    //
+    startTurn: function(game) {
+        
+        var i = utils.getActivePlayerIndex(game);
+        
+        //
+        // Add funds
+        // (TODO) Will need to address captured/changed country properties
+        //
+        if (game.map.tiles) {
+            game.map.tiles.forEach(function(tile, ndx) {
+                if (tile.country === game.players[i].country) {
+                    game.players[i].funds += 1000;
+                } 
+            });
+        }
+
+        //
+        // Reset unit moved
+        //
+        if (game.units) {
+            game.units.forEach(function(unit, ndx) {
+                if (unit.country === game.players[i].country) {
+                    game.units[ndx].moved = false;
+                }
+            });
+        }
+        
+        //
+        // Save the game and continue
+        //
+        return game;
+        
+    },
+    
+    //
+    // Get the active player's index from the game.players array
+    //
+    getActivePlayerIndex: function(game) {
+        return game.players.map(function(p) { return p.active; }).indexOf(true);
+    },
 
     //
     // Abstract promise wrapper to finding a model by its ID
@@ -85,3 +129,5 @@ module.exports = {
     }
 
 };
+    
+module.exports = utils;    
