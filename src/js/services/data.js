@@ -35,7 +35,6 @@
                         })
                         .catch(function(err) {
                             reject(err);
-                            return;
                         });
                     
                 });     
@@ -59,14 +58,13 @@
                     return $q(function(resolve, reject) {
                         
                         if (coData) {
-                            resolve(coData);
-                            return;
+                            return resolve(coData);
                         }
                         
                         $http.get('/api/cos-data')
                             .then(function(response) {
                                 coData = response.data;
-                                resolve(response);
+                                resolve(coData);
                             })
                             .catch(function(response) {
                                 reject(response);
@@ -82,17 +80,15 @@
                     return $q(function(resolve, reject) {
 
                         if (countryData) {
-                            resolve(countryData);
-                            return;
+                            return resolve(countryData);
                         }
                         
                         return $http.get('/api/countries-data')
                             .then(function(response) {
                                 countryData = response.data;
-                                resolve(response);
+                                resolve(countryData);
                             })
                             .catch(function(response) {
-                                console.log('didnt get countries');
                                 reject(response);
                             });
                     });
@@ -106,8 +102,7 @@
                     return $q(function(resolve, reject) {
                         
                         if (menuData) {
-                            resolve(menuData);
-                            return;
+                            return resolve(menuData);
                         }
 
                         $resource('js/data/menu.json').get().$promise.then(function(response) {
@@ -129,14 +124,13 @@
                     return $q(function(resolve, reject) {
                         
                         if (terrainData) {
-                            resolve(terrainData);
-                            return;
+                            return resolve(terrainData);
                         }
                         
                         return $http.get('/api/terrain-data')
                             .then(function(response) {
                                 terrainData = response.data;
-                                resolve(response);
+                                resolve(terrainData);
                             })
                             .catch(function(response) {
                                 reject(response);
@@ -152,14 +146,13 @@
                     return $q(function(resolve, reject) {
                         
                         if (unitData) {
-                            resolve(unitData);
-                            return;
+                            return resolve(unitData);
                         }
                         
                         return $http.get('/api/units-data')
                             .then(function(response) {
                                 unitData = response.data;
-                                resolve(response);
+                                resolve(unitData);
                             })
                             .catch(function(response) {
                                 reject(response);

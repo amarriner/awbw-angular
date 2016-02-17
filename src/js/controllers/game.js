@@ -251,7 +251,7 @@
             });
             
             Data.getCountryData().then(function(response) {
-                $scope.countryData = response.data;
+                $scope.countryData = response;
             });
             
             $scope.changeMap = function() {

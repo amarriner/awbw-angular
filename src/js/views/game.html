@@ -12,7 +12,7 @@
 
     <div class="row" ng-repeat="p in game.players">
         <div class="col-md-2">{{p.user.username}}</div>
-        <div class="col-md-2">{{p.funds}}</div>
+        <div class="col-md-1">{{p.funds}}</div>
         <div class="col-md-2 text-right">
             <button type="button" class="btn btn-primary btn-xs" ng-click="endTurn()" ng-show="p.user._id === currentUser()._id && p.active">End Turn</button>
             <button type="button" class="btn btn-primary btn-xs" ng-click="startGame()" ng-show="!game.startDate">Start Game</button>
